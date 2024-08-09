@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using core.events;
+using System;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+namespace core 
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    ///     Base class for interactable objects
+    /// </summary>
+    public abstract class Entity : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected static void Subscribe<T>(Action<T> handler) where T : class
+        {
+            EventSystem.Subscribe(handler);
+        }
+        protected static void Unsubscribe<T>(Action<T> handler) where T : class
+        {
+            EventSystem.Unsubscribe(handler);
+        }
+        protected void TriggerEvent<T>(T eventArgs) where T : EntityEvent
+        {
+            eventArgs.Initiator = this.gameObject;
+            EventSystem.TriggerEvent(eventArgs);
+        }
     }
 }
