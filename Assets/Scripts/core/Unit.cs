@@ -11,17 +11,17 @@ namespace core
         // Start is called before the first frame update
         void Awake()
         {
-            Subscribe<DamageEvent>(Test);
+            Subscribe<DamageEvent>(this, Test);
         }
 
         // Update is called once per frame
         void Start()
         {
-            TriggerEvent(new DamageEvent());
+            TriggerEvent(this, new DamageEvent());
         }
-        void Test(DamageEvent args)
+        static void Test(EventComponent component, DamageEvent args)
         {
-            Debug.Log(args.Initiator.name);
+            Debug.Log(component.gameObject.name + " " + args.Initiator.name);
         }
 
     }
