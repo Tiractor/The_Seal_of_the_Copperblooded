@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design;
+using UnityEngine;
 
 namespace core.events
 {
@@ -12,9 +14,9 @@ namespace core.events
         private struct EventSearch
         {
             public Type EventType;
-            public EventComponent Target;
+            public Type Target;
 
-            public EventSearch(Type eventType, EventComponent target)
+            public EventSearch(Type eventType, Type target)
             {
                 EventType = eventType;
                 Target = target;
@@ -35,12 +37,13 @@ namespace core.events
         }
 
         private static Dictionary<EventSearch, Delegate> _eventHandlers = new Dictionary<EventSearch, Delegate>();
+        private static Dictionary<Type, Delegate> _globalEventHandlers = new Dictionary<Type, Delegate>();
 
-        public static void Subscribe<TEvent>(EventComponent component, Action<EventComponent, TEvent> handler)
+        public static void Subscribe<TComponent, TEvent>(Action<TComponent, TEvent> handler)
             where TEvent : IEvent
+            where TComponent : EventComponent
         {
-            var key = new EventSearch(typeof(TEvent), component);
-
+            var key = new EventSearch(typeof(TEvent), typeof(TComponent));
             if (_eventHandlers.ContainsKey(key))
             {
                 _eventHandlers[key] = Delegate.Combine(_eventHandlers[key], handler);
@@ -50,11 +53,26 @@ namespace core.events
                 _eventHandlers[key] = handler;
             }
         }
-
-        public static void Unsubscribe<TEvent>(EventComponent component, Action<EventComponent, TEvent> handler)
+        public static void GlobalSubscribe<TEvent>(Action<TEvent> handler)
             where TEvent : IEvent
         {
-            var key = new EventSearch(typeof(TEvent), component);
+            var key = typeof(TEvent);
+
+            if (_globalEventHandlers.ContainsKey(key))
+            {
+                _globalEventHandlers[key] = Delegate.Combine(_globalEventHandlers[key], handler);
+            }
+            else
+            {
+                _globalEventHandlers[key] = handler;
+            }
+        }
+
+        public static void Unsubscribe<TComponent, TEvent>(Action<TComponent, TEvent> handler)
+            where TEvent : IEvent
+            where TComponent : EventComponent
+        {
+            var key = new EventSearch(typeof(TEvent), typeof(TComponent));
 
             if (_eventHandlers.ContainsKey(key))
             {
@@ -71,15 +89,37 @@ namespace core.events
             }
         }
 
-        public static void TriggerEvent<TEvent>(EventComponent component, TEvent eventArgs)
+
+        public static void TriggerEvent<TEvent>(TEvent eventArgs)
+            where TEvent : EntityEvent
+        {
+            
+            if (eventArgs is EntityEvent) TriggerTargetEvent(eventArgs);
+            else TriggerGlobalEvent(eventArgs);
+        }
+
+        private static void TriggerTargetEvent<TEvent>(TEvent eventArgs)
+            where TEvent : EntityEvent
+        {
+            foreach(EventComponent component in eventArgs.Initiator.GetComponents<EventComponent>()) { 
+                var key = new EventSearch(typeof(TEvent), component.GetType());
+                if (_eventHandlers.TryGetValue(key, out var del))
+                {
+                    del?.DynamicInvoke(component, eventArgs);
+                    /*var action = del as Action<EventComponent, TEvent>;
+                    Debug.Log(action);
+                    action?.Invoke(component, eventArgs);*/
+                }
+            }
+        }
+        private static void TriggerGlobalEvent<TEvent>(TEvent eventArgs)
             where TEvent : IEvent
         {
-            var key = new EventSearch(typeof(TEvent), component);
 
-            if (_eventHandlers.TryGetValue(key, out var del))
+            if (_globalEventHandlers.TryGetValue(typeof(TEvent), out var del))
             {
-                var action = del as Action<EventComponent, TEvent>;
-                action?.Invoke(component, eventArgs);
+                var action = del as Action<TEvent>;
+                action?.Invoke(eventArgs);
             }
         }
 

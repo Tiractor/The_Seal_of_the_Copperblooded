@@ -12,8 +12,19 @@ namespace core.events
     /// <summary>
     ///     After all Subscribe
     /// </summary>
-    public class ComponentInit : IEvent
+    public class ComponentInit : EntityEvent
     {
+        EventComponent Component;
+        public ComponentInit(EventComponent component) 
+        {
+            Component = component;
+        }
+        public ComponentInit(GameObject initiator, EventComponent component)
+        {
+            Component = component;
+            Initiator = initiator;
+        }
+
     }
 
     /// <summary>
@@ -24,6 +35,13 @@ namespace core.events
 #nullable enable
         public GameObject? Initiator { get; set; }
 #nullable disable
+        public EntityEvent(GameObject initiator)
+        {
+            Initiator = initiator;
+        }
+        public EntityEvent()
+        {
+        }
     }
 
 
