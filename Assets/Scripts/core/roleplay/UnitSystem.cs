@@ -1,26 +1,32 @@
-using core.events;
-using core.roleplay;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Core.Events;
+using Core.EntityStatuses;
 
-namespace core.roleplay
+namespace Core.Roleplay
 {
-    public class UnitSystem : ComponentSystem
+    public class UnitSystem : EntitySystem
     {
         public override void Initialize()
         {
-            Subscribe<UnitComponent, ComponentInit>(OnComponentInit);
+            base.Initialize();
+            Subscribe<UnitComponent, ComponentInitEvent>(OnComponentInit);
+            Subscribe<UnitComponent, DamageEvent>(OnDamage);
         }
-        static void OnComponentInit(UnitComponent component, ComponentInit args) 
+        public override void SecondUpdate()
         {
-            Debug.Log(args.Initiator.name);
         }
-        // Update is called once per frame
-        
-        static void Test(EventComponent component, DamageEvent args)
+        void OnComponentInit(UnitComponent component, ComponentInitEvent args)
         {
-            Debug.Log(component.gameObject.name + " " + args.Initiator.name);
+            Logger.Info(component.gameObject.name);
+            component.Statuses.Add(new Poisoned());
+            foreach (var stat in component.Statuses)
+            {
+                Logger.Info(stat.GetType().Name);
+            }
+        }
+
+        void OnDamage(UnitComponent component, DamageEvent args)
+        {
+            Logger.Info(component.Damage.DamageDict);
         }
     }
 }

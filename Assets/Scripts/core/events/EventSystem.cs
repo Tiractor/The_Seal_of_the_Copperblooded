@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Xml.Linq;
 using UnityEngine;
 
-namespace core.events
+namespace Core.Events
 {
     /// <summary>
     ///     Base class which will be control interaction
@@ -91,31 +92,39 @@ namespace core.events
 
 
         public static void TriggerEvent<TEvent>(TEvent eventArgs)
-            where TEvent : EntityEvent
+            where TEvent : IEvent
         {
-            
-            if (eventArgs is EntityEvent) TriggerTargetEvent(eventArgs);
-            else TriggerGlobalEvent(eventArgs);
+            if (eventArgs is EntityEvent) TriggerTargetEvent((dynamic)eventArgs);
+            else if (eventArgs is SimpleEvent) TriggerGlobalEvent((dynamic)eventArgs);
         }
 
         private static void TriggerTargetEvent<TEvent>(TEvent eventArgs)
             where TEvent : EntityEvent
         {
-            foreach(EventComponent component in eventArgs.Initiator.GetComponents<EventComponent>()) { 
-                var key = new EventSearch(typeof(TEvent), component.GetType());
+            foreach (EventComponent component in eventArgs.Initiator.GetComponents<EventComponent>()) {
+                TriggerTargetComponentEvent(component, eventArgs);
+            }
+        }
+        public static void TriggerTargetComponentEvent<TComponent, TEvent>(TComponent component, TEvent eventArgs)
+            where TEvent : EntityEvent
+            where TComponent : EventComponent
+        {
+            var derived = component.GetType();
+            while (derived != null)
+            {
+                var key = new EventSearch(typeof(TEvent), derived);
                 if (_eventHandlers.TryGetValue(key, out var del))
                 {
+                    
                     del?.DynamicInvoke(component, eventArgs);
-                    /*var action = del as Action<EventComponent, TEvent>;
-                    Debug.Log(action);
-                    action?.Invoke(component, eventArgs);*/
                 }
+                derived = derived.BaseType;
             }
         }
         private static void TriggerGlobalEvent<TEvent>(TEvent eventArgs)
-            where TEvent : IEvent
+            where TEvent : SimpleEvent
         {
-
+            
             if (_globalEventHandlers.TryGetValue(typeof(TEvent), out var del))
             {
                 var action = del as Action<TEvent>;

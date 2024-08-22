@@ -1,25 +1,25 @@
 using UnityEngine;
 
-namespace core.events
+namespace Core.Events
 {
     /// <summary>
     ///     Base event interaction
     /// </summary>
-    public abstract class IEvent
+    public interface IEvent
     {
     }
 
     /// <summary>
     ///     After all Subscribe
     /// </summary>
-    public class ComponentInit : EntityEvent
+    public class ComponentInitEvent : EntityEvent
     {
         EventComponent Component;
-        public ComponentInit(EventComponent component) 
+        public ComponentInitEvent(EventComponent component) 
         {
             Component = component;
         }
-        public ComponentInit(GameObject initiator, EventComponent component)
+        public ComponentInitEvent(GameObject initiator, EventComponent component)
         {
             Component = component;
             Initiator = initiator;
@@ -43,6 +43,14 @@ namespace core.events
         {
         }
     }
-
+    /// <summary>
+    ///     Event for Global using
+    /// </summary>
+    public class SimpleEvent : IEvent
+    {
+        public SimpleEvent()
+        {
+        }
+    }
 
 }

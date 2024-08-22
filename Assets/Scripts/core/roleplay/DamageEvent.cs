@@ -1,6 +1,6 @@
-using core.events;
+using Core.Events;
 
-namespace core.roleplay
+namespace Core.Roleplay
 {
     /// <summary>
     ///     Base event interaction

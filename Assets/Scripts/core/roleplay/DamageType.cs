@@ -1,4 +1,4 @@
-namespace core.roleplay
+namespace Core.Roleplay
 {
     /// <summary>
     ///     Base event interaction

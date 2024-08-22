@@ -1,12 +1,6 @@
-using core.events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace core.roleplay 
+namespace Core.Roleplay 
 {
-    public sealed class UnitComponent : Entity
+    public sealed class UnitComponent : EntityComponent
     {
         // Start is called before the first frame update
 

@@ -1,16 +1,23 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace core.roleplay
+namespace Core.Roleplay
 {
     /// <summary>
     ///     When give damage, or remove, or hold HP we have this
     /// </summary>
+    [Serializable]
     public class DamageSpecifier
     {
-        public Dictionary<string, float> DamageDict;
+        [SerializeField] public Dictionary<string, float> DamageDict;
         public DamageSpecifier(Dictionary<string, float> damage)
         {
             DamageDict = damage;
+        }
+        public DamageSpecifier()
+        {
+            DamageDict = new();
         }
 
         public float GetTotal()
