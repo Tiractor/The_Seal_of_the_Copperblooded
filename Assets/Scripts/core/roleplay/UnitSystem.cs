@@ -3,16 +3,12 @@ using Core.EntityStatuses;
 
 namespace Core.Roleplay
 {
-    public class UnitSystem : EntitySystem
+    public class UnitSystem : ComponentSystem
     {
         public override void Initialize()
         {
-            base.Initialize();
             Subscribe<UnitComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<UnitComponent, DamageEvent>(OnDamage);
-        }
-        public override void SecondUpdate()
-        {
         }
         void OnComponentInit(UnitComponent component, ComponentInitEvent args)
         {

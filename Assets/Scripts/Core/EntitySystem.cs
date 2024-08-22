@@ -1,6 +1,5 @@
 using Core.Events;
 using System.Collections.Generic;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Core
 {
