@@ -10,7 +10,7 @@ namespace Core.Roleplay
     [Serializable]
     public class DamageSpecifier
     {
-        [SerializeField] public Dictionary<string, float> DamageDict;
+        public Dictionary<string, float> DamageDict;
         public DamageSpecifier(Dictionary<string, float> damage)
         {
             DamageDict = damage;

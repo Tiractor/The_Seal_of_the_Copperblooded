@@ -1,8 +1,12 @@
 namespace Core.Roleplay
 {
-    /// <summary>
-    ///     Base event interaction
-    /// </summary>
+    public enum DamageTypes
+    {
+        BurnDamage,
+        MagicDamage,
+        PhysicDamage,
+        BiologicDamage
+    }
 
     public enum BurnDamage
     {
@@ -10,6 +14,13 @@ namespace Core.Roleplay
         Shock,
         Cold,
         Caustic
+    }
+
+    public enum MagicDamage
+    {
+        Holy,
+        Taint,
+        Desiccation
     }
 
     public enum PhysicDamage
