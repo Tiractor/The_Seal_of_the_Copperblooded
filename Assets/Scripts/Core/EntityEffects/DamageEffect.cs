@@ -10,18 +10,11 @@ namespace Core.EntityEffects
         [SerializeField] public DamageSpecifier damage = new();
         public override void Effect<T>(T component)
         {
-            foreach (var cur in damage.DamageDict)
-            {
-                if (component.Damage.DamageDict.ContainsKey(cur.Key))
-                {
-                    component.Damage.DamageDict[cur.Key] = component.Damage.DamageDict[cur.Key] + cur.Value;
-                }
-                else
-                {
-                    component.Damage.DamageDict[cur.Key] = cur.Value;
-                }
-            }
+            component.Damage.Add(damage);
             ComponentSystem.TriggerEvent(component, new DamageEvent());
+            if (component.DamageThreshold <= component.Damage.GetTotal()) 
+                ComponentSystem.TriggerEvent(component, new DeathEvent());
+            
         }
     }
 }

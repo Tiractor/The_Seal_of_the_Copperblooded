@@ -8,11 +8,14 @@ namespace Core
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager instance;
         private int _tickTimer = -1;
-        private HashSet<ComponentSystem> _systems = new();
+        private Dictionary<Type, ComponentSystem> _systems = new();
 
         private void Awake()
         {
+            if(instance == null) instance = this;
+            else DestroyImmediate(gameObject);
             InitializeAllComponentSystems();
         }
 
@@ -30,14 +33,14 @@ namespace Core
         private void SystemsSecondUpdate()
         {
             
-            foreach (var system in _systems)
+            foreach (var system in _systems.Values)
             {
                 system.SecondUpdate();
             }
         }
         private void SystemsUpdate()
         {
-            foreach (var system in _systems)
+            foreach (var system in _systems.Values)
             {
                 system.TickUpdate();
             }
@@ -55,8 +58,23 @@ namespace Core
                 // Создаем экземпляр каждого найденного типа
                 ComponentSystem system = (ComponentSystem)Activator.CreateInstance(type);
                 system.Initialize();
-                _systems.Add(system);
+                _systems.Add(type, system);
             }
+        }
+        public TypeSystem tryGetSystem<TypeSystem>()
+            where TypeSystem : ComponentSystem
+        {
+            if (_systems.TryGetValue(typeof(TypeSystem), out var system) && system is TypeSystem specificSystem)
+            {
+                return specificSystem;
+            }
+
+            return null;
+        }
+        public static TypeSystem TryGetSystem<TypeSystem>()
+            where TypeSystem : ComponentSystem
+        {
+            return instance != null ? instance.tryGetSystem<TypeSystem>() : null;
         }
     }
 }

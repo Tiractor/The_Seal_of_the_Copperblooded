@@ -19,6 +19,10 @@ namespace Core
         {
             Output("<color=red>[ERRO]</color> ", message);
         }
+        public static void Tech(object message)
+        {
+            Output("<color=blue>[TECH]</color> ", message);
+        }
         private static void Output(string tag, object message)
         {
             string output = message.ToString();

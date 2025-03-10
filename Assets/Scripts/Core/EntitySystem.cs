@@ -1,5 +1,6 @@
 using Core.Events;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core
 {
@@ -15,7 +16,8 @@ namespace Core
             base.SecondUpdate();
             foreach (var entity in _entities) 
             {
-                foreach (var status in entity.Statuses)
+                var Temp = entity.Statuses.ToList();
+                foreach (var status in Temp)
                 {
                     var effects = status.SecondEffect();
                     if (effects == null) continue;

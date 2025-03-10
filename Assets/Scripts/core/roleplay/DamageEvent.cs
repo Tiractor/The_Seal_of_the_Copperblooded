@@ -3,7 +3,7 @@ using Core.Events;
 namespace Core.Roleplay
 {
     /// <summary>
-    ///     Base event interaction
+    ///     When Entity get Damage
     /// </summary>
     public class DamageEvent : EntityEvent { }
 

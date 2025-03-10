@@ -9,11 +9,14 @@ namespace Core.Roleplay
         {
             Subscribe<UnitComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<UnitComponent, DamageEvent>(OnDamage);
+            Subscribe<UnitComponent, DeathEvent>(OnDeath);
+
         }
         void OnComponentInit(UnitComponent component, ComponentInitEvent args)
         {
             Logger.Info(component.gameObject.name);
-            component.Statuses.Add(new Poisoned());
+            component.Statuses.Add(new Frosted());
+            component.Statuses.Add(new Fired());
             foreach (var stat in component.Statuses)
             {
                 Logger.Info(stat.GetType().Name);
@@ -22,7 +25,11 @@ namespace Core.Roleplay
 
         void OnDamage(UnitComponent component, DamageEvent args)
         {
-            Logger.Info(component.Damage.DamageDict);
+            Logger.Info(component.Damage.Display());
+        }
+        void OnDeath(UnitComponent component, DeathEvent args)
+        {
+            Logger.Warn("Unit is Dead!");
         }
     }
 }

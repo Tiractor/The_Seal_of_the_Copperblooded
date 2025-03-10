@@ -92,11 +92,12 @@ namespace Core.Events
 
 
         public static void TriggerEvent<TEvent>(TEvent eventArgs)
-            where TEvent : IEvent
+        where TEvent : IEvent
         {
-            if (eventArgs is EntityEvent) TriggerTargetEvent((dynamic)eventArgs);
-            else if (eventArgs is SimpleEvent) TriggerGlobalEvent((dynamic)eventArgs);
+            if (eventArgs is EntityEvent e) TriggerTargetEvent(e);
+            else if (eventArgs is SimpleEvent s) TriggerGlobalEvent(s);
         }
+
 
         private static void TriggerTargetEvent<TEvent>(TEvent eventArgs)
             where TEvent : EntityEvent

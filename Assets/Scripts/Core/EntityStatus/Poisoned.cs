@@ -9,9 +9,9 @@ namespace Core.EntityStatuses
         public override HashSet<EntityEffect> SecondEffect() 
         { 
             var effects = new HashSet<EntityEffect>();
-            var damage = new DamageEffect();
-            damage.damage.DamageDict.Add(BiologicDamage.Poison.ToString(), 1);
-            effects.Add(damage);
+            var damageEffect = new DamageEffect();
+            damageEffect.damage.Add(BiologicDamage.Poison, 1);
+            effects.Add(damageEffect);
             return effects;
         }
     }
