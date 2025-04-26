@@ -1,9 +1,7 @@
+using Core.Mind.Player;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Xml.Linq;
-using UnityEngine;
+using System.Diagnostics.Tracing;
 
 namespace Core.Events
 {
@@ -45,6 +43,7 @@ namespace Core.Events
             where TComponent : EventComponent
         {
             var key = new EventSearch(typeof(TEvent), typeof(TComponent));
+            if (GameManager.instance.Debugging) Logger.Tech($"Происходит подписка: {key}");
             if (_eventHandlers.ContainsKey(key))
             {
                 _eventHandlers[key] = Delegate.Combine(_eventHandlers[key], handler);
@@ -111,12 +110,13 @@ namespace Core.Events
             where TComponent : EventComponent
         {
             var derived = component.GetType();
+            if (GameManager.instance.Debugging) Logger.Tech($"Был вызван: {eventArgs} по компоненту {component}");
             while (derived != null)
             {
-                var key = new EventSearch(typeof(TEvent), derived);
+                var key = new EventSearch(eventArgs.GetType(), derived);
                 if (_eventHandlers.TryGetValue(key, out var del))
                 {
-                    
+                    if (GameManager.instance.Debugging) Logger.Tech($"Был найден");
                     del?.DynamicInvoke(component, eventArgs);
                 }
                 derived = derived.BaseType;

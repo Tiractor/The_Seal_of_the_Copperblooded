@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace Core.Roleplay
 {
@@ -10,8 +9,8 @@ namespace Core.Roleplay
     [Serializable]
     public class DamageSpecifier
     {
-        public Dictionary<Damage, float> DamageDict {  get; private set; }
-        public DamageSpecifier(Dictionary<Damage, float> damage)
+        public Dictionary<DamageType, float> DamageDict {  get; private set; }
+        public DamageSpecifier(Dictionary<DamageType, float> damage)
         {
             DamageDict = damage;
         }
@@ -30,9 +29,9 @@ namespace Core.Roleplay
         }
         public float GetSpecific<T>(T type) where T : Enum
         {
-            return GetSpecific((Damage)(object)type);
+            return GetSpecific((DamageType)(object)type);
         }
-        public float GetSpecific(Damage Type)
+        public float GetSpecific(DamageType Type)
         {
             if (DamageDict.TryGetValue(Type, out var value))
                 return value;
@@ -41,7 +40,14 @@ namespace Core.Roleplay
         }
         public void Add<T>(T type, float count) where T : Enum
         {
-            Add((Damage)(object)type, count);
+            Add((DamageType)(object)type, count);
+        }
+        public void Add(Damage[] Data)
+        {
+            foreach (var pair in Data)
+            {
+                Add(pair.Type, pair.Count);
+            }
         }
         public void Add(DamageSpecifier Data)
         {
@@ -50,7 +56,7 @@ namespace Core.Roleplay
                 Add(pair.Key, pair.Value);
             }
         }
-        public void Add(Damage Type, float Count)
+        public void Add(DamageType Type, float Count)
         {
             if (DamageDict.TryGetValue(Type, out var value))
                 DamageDict[Type] = value + Count;
@@ -60,7 +66,7 @@ namespace Core.Roleplay
         
         public string Display()
         {
-            string data = "Total Damage: " + GetTotal() + "\n";
+            string data = "Total DamageType: " + GetTotal() + "\n";
             foreach (var value in DamageDict)
             {
                 data += value.Key + ": " + value.Value + "\n";

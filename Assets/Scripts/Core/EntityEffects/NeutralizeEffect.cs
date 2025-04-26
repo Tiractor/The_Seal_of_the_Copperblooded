@@ -7,12 +7,13 @@ namespace Core.EntityEffects
     [Serializable]
     public class NeutralizeEffect : EntityEffect
     {
-        [SerializeField] public EntityStatus target;
-
+        
+        [SerializeReference] public EntityStatus target = new Fired();
         public override void Effect<T>(T component)
         {
             Type n = target.GetType();
             component.Statuses.RemoveWhere(status => status.GetType() == n);
+            Logger.Tech(n.Name);
         }
     }
 }

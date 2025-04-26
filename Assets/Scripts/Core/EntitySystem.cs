@@ -1,6 +1,9 @@
 using Core.Events;
+using Core.Roleplay;
+using Core.Roleplay.Progress;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Core
 {
@@ -10,6 +13,7 @@ namespace Core
         public override void Initialize()
         {
             Subscribe<EntityComponent, ComponentInitEvent>(OnComponentInit);
+            Subscribe<EntityComponent, DamageEvent>(OnDamage);
         }
         public override void SecondUpdate()
         {
@@ -42,6 +46,15 @@ namespace Core
                         effect.Effect(entity);
                     }
                 }
+            }
+        }
+        private void OnDamage(EntityComponent component, DamageEvent args)
+        {
+            component.Damage.Add(args.Damage);
+            if (component.DamageThreshold <= component.Damage.GetTotal()) { 
+                component.TryGetComponent<LevelComponent>(out var progress);
+                if (progress != null) TriggerEvent(component, new DeathEvent(progress));
+                else GameObject.Destroy(component.gameObject);
             }
         }
         private void OnComponentInit(EntityComponent component, ComponentInitEvent args) 

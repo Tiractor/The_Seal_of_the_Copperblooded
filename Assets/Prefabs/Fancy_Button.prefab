@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u0439"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 085cc2e1c4f7f2747adf6c668c6677e7, type: 2}
   m_sharedMaterial: {fileID: 7375250309508684879, guid: 085cc2e1c4f7f2747adf6c668c6677e7, type: 2}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 55.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 8.023682, y: 0, z: 10.492432, w: 26.174892}
+  m_margin: {x: 8.023682, y: 27.837175, z: 10.492432, w: 26.174892}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_OnUnpress:
     m_PersistentCalls:
       m_Calls: []
-  Text: 
+  Text: "\u0439"
   s_OnPress: {fileID: 2031192090289455030}
   s_OnUnpress: {fileID: 8650792393351839335}
 --- !u!1 &6882141718739265566
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u0439"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 085cc2e1c4f7f2747adf6c668c6677e7, type: 2}
   m_sharedMaterial: {fileID: 7375250309508684879, guid: 085cc2e1c4f7f2747adf6c668c6677e7, type: 2}
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 57.4
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 8.023682, y: 0, z: 10.492432, w: 26.174892}
+  m_margin: {x: 8.023682, y: 27.365381, z: 10.492432, w: 25.231277}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

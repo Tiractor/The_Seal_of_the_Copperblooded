@@ -1,0 +1,13 @@
+using System;
+
+namespace Core.EntityEffects
+{
+    [Serializable]
+    public class #SCRIPTNAME# : EntityEffect
+    {
+
+        public override void Effect<T>(T component)
+        {
+        }
+    }
+}

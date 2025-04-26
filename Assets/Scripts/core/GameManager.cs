@@ -9,6 +9,7 @@ namespace Core
     public class GameManager : MonoBehaviour
     {
         public static GameManager instance;
+        public bool Debugging = false;
         private int _tickTimer = -1;
         private Dictionary<Type, ComponentSystem> _systems = new();
 
@@ -22,13 +23,12 @@ namespace Core
         private void FixedUpdate()
         {
             _tickTimer += 1;
+            if (_tickTimer % 5 == 0) SystemsTickUpdate();
             if (_tickTimer >= 50)
             {
                 SystemsSecondUpdate();
                 _tickTimer = 0;
             }
-            if (_tickTimer % 5 == 0) SystemsUpdate();
-
         }
         private void SystemsSecondUpdate()
         {
@@ -38,7 +38,7 @@ namespace Core
                 system.SecondUpdate();
             }
         }
-        private void SystemsUpdate()
+        private void SystemsTickUpdate()
         {
             foreach (var system in _systems.Values)
             {

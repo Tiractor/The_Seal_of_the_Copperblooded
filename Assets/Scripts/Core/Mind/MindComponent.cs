@@ -1,10 +1,13 @@
-using Core.Roleplay.Weapons;
+using Core.Roleplay.Attack;
+using Core.Roleplay.Progress;
 using UnityEngine;
 
 namespace Core.Mind
 {
-    public abstract class MindComponent : EntityComponent
+    public abstract class MindComponent : LevelComponent
     {
-        [SerializeReference] public Weapon Weapon;
+        [SerializeReference] public WeaponComponent PrimaryAttack;
+        [SerializeReference] public WeaponComponent SecondaryAttack;
+        [SerializeReference] public WeaponComponent TertiaryAttack;
     }
 }

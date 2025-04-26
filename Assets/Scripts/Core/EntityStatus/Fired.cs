@@ -1,9 +1,11 @@
 using Core.EntityEffects;
 using Core.Roleplay;
+using System;
 using System.Collections.Generic;
 
 namespace Core.EntityStatuses
 {
+    [Serializable]
     public class Fired : EntityStatus
     {
         public override HashSet<EntityEffect> SecondEffect() 

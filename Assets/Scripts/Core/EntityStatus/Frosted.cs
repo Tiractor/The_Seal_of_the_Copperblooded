@@ -1,14 +1,15 @@
 using Core.EntityEffects;
 using Core.Roleplay;
+using System;
 using System.Collections.Generic;
 
 namespace Core.EntityStatuses
 {
+    [Serializable]
     public class Frosted : EntityStatus
     {
         public override HashSet<EntityEffect> SecondEffect() 
         { 
-
             var effects = new HashSet<EntityEffect>();
 
             var damageEffect = new DamageEffect();

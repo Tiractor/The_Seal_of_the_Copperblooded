@@ -1,0 +1,9 @@
+namespace Core
+{
+    public class #SCRIPTNAME# : ComponentSystem
+    {
+        public override void Initialize()
+        {
+        }
+    }
+}

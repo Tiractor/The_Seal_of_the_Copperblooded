@@ -1,0 +1,9 @@
+using Core.Events;
+
+namespace Core
+{
+    public class #SCRIPTNAME# : EventComponent
+    {
+
+    }
+}

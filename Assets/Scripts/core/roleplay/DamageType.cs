@@ -1,5 +1,18 @@
+using System;
+
 namespace Core.Roleplay
 {
+    [Serializable]
+    public struct Damage 
+    {
+        public Damage(DamageType type, float count)
+        {
+            Type = type;
+            Count = count;
+        }
+        public DamageType Type;
+        public float Count;
+    }
     public enum DamageTypes
     {
         BurnDamage = 0,
@@ -36,7 +49,7 @@ namespace Core.Roleplay
         Cellular,
         Poison
     }
-    public enum Damage 
+    public enum DamageType 
     {
         Heat,
         Shock,

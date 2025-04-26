@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Room
   m_EditorClassIdentifier: 
   roomPrefabs:
-  - prefab: {fileID: 0}
+  - prefab: {fileID: 6761081398758092475, guid: db2ac727d9588504fad57265d646a720, type: 3}
     entryPoints: []
