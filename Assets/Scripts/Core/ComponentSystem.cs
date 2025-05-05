@@ -45,7 +45,7 @@ namespace Core
         /// <summary>
         ///     Trigger EntityEvent eventArgs with GameObject target 
         /// </summary>
-        public static void TriggerEvent<T>(GameObject target, T eventArgs) where T : EntityEvent
+        public static void TriggerEvent<T>(GameObject target, T eventArgs) where T : ComponentEvent
         {
             eventArgs.Initiator = target;
             EventSystem.TriggerEvent(eventArgs);
@@ -55,7 +55,7 @@ namespace Core
         ///     Trigger EntityEvent eventArgs with EntityComponent target 
         /// </summary>
         public static void TriggerEvent<TComponent, TEvent>(TComponent target, TEvent eventArgs) 
-            where TEvent : EntityEvent
+            where TEvent : ComponentEvent
             where TComponent : EventComponent
         {
             eventArgs.Initiator = target.gameObject;

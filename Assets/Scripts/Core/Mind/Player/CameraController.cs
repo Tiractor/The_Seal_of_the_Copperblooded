@@ -21,7 +21,7 @@ namespace Core.Mind.Player
         void Start()
         {
             // Lock the mouse cursor to the game screen.
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         void Update()

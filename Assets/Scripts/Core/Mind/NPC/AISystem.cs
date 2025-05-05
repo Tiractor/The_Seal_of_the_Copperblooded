@@ -14,6 +14,8 @@ namespace Core.Mind.NPC
         {
             Subscribe<AIComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<PlayerComponent, ComponentInitEvent>(OnComponentInit);
+            Subscribe<AIComponent, DeathEvent>(OnAIDeath);
+            Subscribe<PlayerComponent, DeathEvent>(OnPlayerDeath);
         }
 
         public override void SecondUpdate()
@@ -21,6 +23,7 @@ namespace Core.Mind.NPC
             base.SecondUpdate();
             foreach (var NPC in _NPC)
             {
+                if(NPC == null) _NPC.Remove(NPC);
                 if (NPC.Target == null) 
                 {
                     foreach (var player in _targets)
@@ -32,8 +35,10 @@ namespace Core.Mind.NPC
                 else
                 {
                     NPC.TargetRange = Vector3.Distance(NPC.transform.position, NPC.Target.transform.position);
-                    if(NPC.TargetRange < NPC.AttackRange) TriggerEvent(NPC.PrimaryAttack, new AttackEvent(NPC.Target));
-                    if (NPC.TargetRange > NPC.ChaseRange) 
+                    if(NPC.TargetRange < NPC.PrimaryAttack.Range) TriggerEvent(NPC.PrimaryAttack, new AttackEvent(NPC.Target));
+                    else if (NPC.SecondaryAttack!= null && NPC.TargetRange < NPC.SecondaryAttack.Range) TriggerEvent(NPC.SecondaryAttack, new AttackEvent(NPC.Target));
+                    else if (NPC.SecondaryAttack != null && NPC.TargetRange < NPC.TertiaryAttack.Range) TriggerEvent(NPC.TertiaryAttack, new AttackEvent(NPC.Target));
+                    if (NPC.TargetRange > NPC.ChaseRange)
                     {
                         NPC.TargetRange = -1;
                         NPC.Target = null;
@@ -54,6 +59,14 @@ namespace Core.Mind.NPC
         private void OnComponentInit(PlayerComponent component, ComponentInitEvent args)
         {
             _targets.Add(component);
+        }
+        void OnAIDeath(AIComponent component, DeathEvent args)
+        {
+            _NPC.Remove(component);
+        }
+        void OnPlayerDeath(PlayerComponent component, DeathEvent args)
+        {
+            _targets.Remove(component);
         }
     }
 }

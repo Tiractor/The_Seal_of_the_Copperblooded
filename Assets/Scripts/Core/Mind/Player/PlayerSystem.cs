@@ -16,9 +16,12 @@ namespace Core.Mind.Player
         }
         private void OnPrimaryAttack(PlayerComponent component, PrimaryAttackEvent args)
         {
-            var Targets = AttackSystem.SplashAttack(component.transform);
+            var Targets = AttackSystem.SplashAttack(component.transform, component.PrimaryAttack.Range);
             foreach (var target in Targets)
+            {
+                if (target == null) continue;
                 TriggerEvent(component.PrimaryAttack, new AttackEvent(target));
+            }
         }
 
 

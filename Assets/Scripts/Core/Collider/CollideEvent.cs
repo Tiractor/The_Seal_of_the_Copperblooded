@@ -2,7 +2,7 @@ using Core.Events;
 
 namespace Core.Collide
 {
-    public class CollideEvent : EntityEvent
+    public class CollideEvent : ComponentEvent
     {
 
         public CollideableComponent Who;

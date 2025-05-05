@@ -3,6 +3,7 @@ using Core.Mind;
 using Core.Roleplay.Attack;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Core.Roleplay
 {
@@ -17,18 +18,31 @@ namespace Core.Roleplay
         {
             Logger.Info(component.gameObject.name);
         }
-        static public List<MindComponent> SplashAttack(Transform Who, float attackRadius = 2f)
+        static public List<EntityComponent> SplashAttack(Transform Who, float attackRadius = 2f)
         {
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
-            List<MindComponent> Targets = new List<MindComponent>();
+            List<EntityComponent> Targets = new List<EntityComponent>();
             Collider[] hitEnemies = Physics.OverlapSphere(Who.position + Who.forward, attackRadius, enemyLayer);
 
-            foreach (Collider enemy in hitEnemies)
+            foreach (var hit in hitEnemies)
             {
-                Logger.Info("Попали во врага: " + enemy.name);
-                var target = enemy.GetComponent<MindComponent>();
-                if (target == null) enemy.GetComponentInParent<MindComponent>();
+                Transform current = hit.transform;
+                EntityComponent target = null;
+                while (current != null)
+                {
+                    target = current.GetComponent<EntityComponent>();
+                    if (target != null)
+                        break;
+
+                    current = current.parent;
+                }
+                if (target == null)
+                {
+                    Logger.Warn("Entity not found для " + hit.name);
+                    continue;
+                }
                 Targets.Add(target);
+                Logger.Info("Попали во врага: " + target.name);
             }
             return Targets;
         }

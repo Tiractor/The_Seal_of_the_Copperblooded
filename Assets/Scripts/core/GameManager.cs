@@ -12,7 +12,7 @@ namespace Core
         public bool Debugging = false;
         private int _tickTimer = -1;
         private Dictionary<Type, ComponentSystem> _systems = new();
-
+        public PrefabContainer Prefabs;
         private void Awake()
         {
             if(instance == null) instance = this;

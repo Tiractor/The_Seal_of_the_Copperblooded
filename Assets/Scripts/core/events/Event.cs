@@ -12,7 +12,7 @@ namespace Core.Events
     /// <summary>
     ///     After all Subscribe
     /// </summary>
-    public class ComponentInitEvent : EntityEvent
+    public class ComponentInitEvent : ComponentEvent
     {
         EventComponent Component;
         public ComponentInitEvent(EventComponent component) 
@@ -26,20 +26,36 @@ namespace Core.Events
         }
 
     }
+    /// <summary>
+    ///     After all Subscribe
+    /// </summary>
+    public class SimpleComponentEvent : ComponentEvent
+    {
+        EventComponent Component;
+        public SimpleComponentEvent(EventComponent component)
+        {
+            Component = component;
+        }
+        public SimpleComponentEvent(GameObject initiator, EventComponent component)
+        {
+            Component = component;
+            Initiator = initiator;
+        }
+    }
 
     /// <summary>
     ///     Event which get started from Entity
     /// </summary>
-    public class EntityEvent : IEvent
+    public class ComponentEvent : IEvent
     {
 #nullable enable
         public GameObject? Initiator { get; set; }
 #nullable disable
-        public EntityEvent(GameObject initiator)
+        public ComponentEvent(GameObject initiator)
         {
             Initiator = initiator;
         }
-        public EntityEvent()
+        public ComponentEvent()
         {
         }
     }

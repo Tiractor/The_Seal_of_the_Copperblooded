@@ -5,7 +5,7 @@ namespace Core.Roleplay
     /// <summary>
     ///     When Entity get Damage
     /// </summary>
-    public class DamageEvent : EntityEvent 
+    public class DamageEvent : ComponentEvent 
     {
         public DamageSpecifier Damage;
         public DamageEvent(DamageSpecifier damage) 

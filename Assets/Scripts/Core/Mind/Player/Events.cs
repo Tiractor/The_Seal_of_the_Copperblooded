@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Mind.Player
 {
-    public class ButtonPressEvent : EntityEvent
+    public class ButtonPressEvent : ComponentEvent
     {
         public KeyCode Button;
         public ButtonPressEvent(KeyCode button)

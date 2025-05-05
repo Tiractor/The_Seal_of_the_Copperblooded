@@ -1,6 +1,4 @@
 using Core.Events;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 namespace Core
 {

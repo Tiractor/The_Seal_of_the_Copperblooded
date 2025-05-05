@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Core.Roleplay.Progress { 
     public class LevelSystem : ComponentSystem
     {
-        [SerializeReference]public GameObject ExpObject;
         public override void Initialize()
         {
             Subscribe<LevelComponent, DeathEvent>(OnDeath);
@@ -12,8 +11,11 @@ namespace Core.Roleplay.Progress {
         }
         private void OnDeath(LevelComponent component, DeathEvent args)
         {
-            ExpObject.GetComponent<ExperienceComponent>().Count = component.experience + component.level * 3;
-            GameObject.Instantiate(ExpObject, component.transform);
+            var pos = component.transform.position;
+            pos.y += 1f;
+            var temp = GameObject.Instantiate(GameManager.instance.Prefabs.ExpObject, pos, component.transform.rotation, component.transform.parent);
+            temp.GetComponent<ExperienceComponent>().Count = component.experience + component.level * 3;
+            GameObject.Destroy(component.gameObject); 
         }
         private void OnCollide(ExperienceComponent component, CollideEvent args)
         {
@@ -26,7 +28,7 @@ namespace Core.Roleplay.Progress {
                 comp.level++;
                 comp.nextlvlexp += comp.nextlvlexp / 2;
             }
-            GameObject.Destroy(args.With.gameObject);
+            GameObject.Destroy(args.Who.gameObject);
         }
     }
 }

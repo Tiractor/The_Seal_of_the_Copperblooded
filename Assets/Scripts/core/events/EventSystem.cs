@@ -1,4 +1,5 @@
 using Core.Mind.Player;
+using Core.Roleplay;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -93,20 +94,20 @@ namespace Core.Events
         public static void TriggerEvent<TEvent>(TEvent eventArgs)
         where TEvent : IEvent
         {
-            if (eventArgs is EntityEvent e) TriggerTargetEvent(e);
+            if (eventArgs is ComponentEvent e) TriggerTargetEvent(e);
             else if (eventArgs is SimpleEvent s) TriggerGlobalEvent(s);
         }
 
 
         private static void TriggerTargetEvent<TEvent>(TEvent eventArgs)
-            where TEvent : EntityEvent
+            where TEvent : ComponentEvent
         {
             foreach (EventComponent component in eventArgs.Initiator.GetComponents<EventComponent>()) {
                 TriggerTargetComponentEvent(component, eventArgs);
             }
         }
         public static void TriggerTargetComponentEvent<TComponent, TEvent>(TComponent component, TEvent eventArgs)
-            where TEvent : EntityEvent
+            where TEvent : ComponentEvent
             where TComponent : EventComponent
         {
             var derived = component.GetType();

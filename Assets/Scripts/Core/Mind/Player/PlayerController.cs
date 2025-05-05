@@ -9,7 +9,7 @@ namespace Core.Mind.Player
         public float moveSpeed = 5f;
         private void Awake()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
         private void Update()
         {

@@ -6,7 +6,7 @@ namespace Core.Roleplay.Attack
     /// <summary>
     ///     When Entity Attack other Entity
     /// </summary>
-    public class ShotEvent : EntityEvent 
+    public class ShotEvent : ComponentEvent 
     {
         public EntityComponent Target;
 

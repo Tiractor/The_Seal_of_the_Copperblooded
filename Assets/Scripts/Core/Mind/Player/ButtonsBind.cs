@@ -7,7 +7,7 @@ namespace Core.Mind.Player
 {
     public class ButtonsBind : EntitySystem
     {
-        public static Dictionary<KeyCode, EntityEvent> Binds { get; private set; } = new Dictionary<KeyCode, EntityEvent>();
+        public static Dictionary<KeyCode, ComponentEvent> Binds { get; private set; } = new Dictionary<KeyCode, ComponentEvent>();
         public override void Initialize()
         {
             //Subscribe<PlayerComponent, ButtonPressEvent>(OnButtonPress);
