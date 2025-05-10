@@ -50,12 +50,14 @@ namespace Core
         }
         private void OnDamage(EntityComponent component, DamageEvent args)
         {
-            component.Damage.Add(args.Damage);
+            var dat = args.Damage * component.Resistance;
+            component.Damage.Add(dat);
             if (component.DamageThreshold <= component.Damage.GetTotal()) { 
                 component.TryGetComponent<LevelComponent>(out var progress);
                 if (progress != null) TriggerEvent(component, new DeathEvent(progress));
                 else GameObject.Destroy(component.gameObject);
             }
+            Logger.Info(component.Damage.Display());
         }
         private void OnComponentInit(EntityComponent component, ComponentInitEvent args) 
         {

@@ -42,7 +42,6 @@ namespace Core.Mind
 
         void OnDamage(MindComponent component, DamageEvent args)
         {
-            Logger.Info(component.Damage.Display());
         }
         void OnDeath(MindComponent component, DeathEvent args)
         {

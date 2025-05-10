@@ -58,7 +58,7 @@ namespace Core.Events
             where TEvent : IEvent
         {
             var key = typeof(TEvent);
-
+            if (GameManager.instance.Debugging) Logger.Tech($"Происходит глобальная подписка: {key}");
             if (_globalEventHandlers.ContainsKey(key))
             {
                 _globalEventHandlers[key] = Delegate.Combine(_globalEventHandlers[key], handler);
@@ -95,7 +95,10 @@ namespace Core.Events
         where TEvent : IEvent
         {
             if (eventArgs is ComponentEvent e) TriggerTargetEvent(e);
-            else if (eventArgs is SimpleEvent s) TriggerGlobalEvent(s);
+            else if (eventArgs is SimpleEvent s)
+            {
+                TriggerGlobalEvent(s);
+            }
         }
 
 
@@ -126,11 +129,9 @@ namespace Core.Events
         private static void TriggerGlobalEvent<TEvent>(TEvent eventArgs)
             where TEvent : SimpleEvent
         {
-            
-            if (_globalEventHandlers.TryGetValue(typeof(TEvent), out var del))
+            if (_globalEventHandlers.TryGetValue(eventArgs.GetType(), out var del))
             {
-                var action = del as Action<TEvent>;
-                action?.Invoke(eventArgs);
+                del?.DynamicInvoke(eventArgs);
             }
         }
 

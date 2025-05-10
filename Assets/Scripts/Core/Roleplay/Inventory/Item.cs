@@ -13,6 +13,7 @@ namespace Core.Roleplay.Inventory
         public int maxStack = 1;
         public int amount = 1;
         public List<ItemTags> Tags;
+        public bool canBeEquip = false; 
 
         [TextArea]
         public string description;

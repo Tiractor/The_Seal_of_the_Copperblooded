@@ -15,5 +15,13 @@ namespace Core.EntityEffects
             component.Statuses.RemoveWhere(status => status.GetType() == n);
             Logger.Tech(n.Name);
         }
+        public NeutralizeEffect(EntityStatus Target)
+        {
+            target = Target;
+        }
+        public NeutralizeEffect()
+        {
+            target = new Fired();
+        }
     }
 }

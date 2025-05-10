@@ -1,5 +1,6 @@
 using Core.Events;
 using Core.Roleplay;
+using Core.UI;
 
 
 namespace Core.Mind.Player
@@ -10,6 +11,7 @@ namespace Core.Mind.Player
         public override void Initialize()
         {
             Subscribe<PlayerComponent, ComponentInitEvent>(OnComponentInit);
+            Subscribe<PlayerComponent, DamageEvent>(OnDamage);
             Subscribe<PlayerComponent, PrimaryAttackEvent>(OnPrimaryAttack);
             Subscribe<PlayerComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<PlayerComponent, ComponentInitEvent>(OnComponentInit);
@@ -23,7 +25,10 @@ namespace Core.Mind.Player
                 TriggerEvent(component.PrimaryAttack, new AttackEvent(target));
             }
         }
-
+        private void OnDamage(PlayerComponent component, DamageEvent args)
+        {
+            TriggerEvent(new UpdateDisplayEvent(Display.Hitpoints));
+        }
 
         private void OnComponentInit(PlayerComponent component, ComponentInitEvent args)
         {

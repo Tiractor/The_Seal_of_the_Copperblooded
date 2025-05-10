@@ -1,4 +1,6 @@
 using Core.Events;
+using Core.Mind.Player;
+using Core.UI;
 using System.Collections.Generic;
 
 namespace Core.Roleplay.Inventory
@@ -10,6 +12,7 @@ namespace Core.Roleplay.Inventory
         {
             Subscribe<InventoryComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<InventoryComponent, SimpleComponentEvent>(OnUpdate);
+            Subscribe<InventorySlot, EquipEvent>(OnEquip);
         }
         private void OnComponentInit(InventoryComponent component, ComponentInitEvent args)
         {
@@ -32,6 +35,25 @@ namespace Core.Roleplay.Inventory
                 Replace(item,component);
                 Refresh(item);
             }
+        }
+        private void OnEquip(InventorySlot component, EquipEvent args)
+        {
+            var equip = component.isEquipSlot ? 1 : -1;
+            if (args.EquippedItem.Tags.Contains(ItemTags.Resistance))
+            {
+                PlayerSystem._player.Resistance += (args.EquippedItem.damageSpecifier * equip);
+                TriggerEvent(new UpdateDisplayEvent(Display.Resistance));
+            }
+            if (args.EquippedItem.Tags.Contains(ItemTags.Amplification))
+            {
+                PlayerSystem._player.Amplification += (args.EquippedItem.damageSpecifier * equip);
+                TriggerEvent(new UpdateDisplayEvent(Display.Amplification));
+            }
+            if (args.EquippedItem.Tags.Contains(ItemTags.Weapon))
+            {
+                PlayerSystem._player.PrimaryAttack.gameObject.SetActive(equip == 1);
+            }
+
         }
         private void Refresh(InventoryComponent component)
         {

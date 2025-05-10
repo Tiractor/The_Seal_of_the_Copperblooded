@@ -1,7 +1,6 @@
 using Core.EntityStatuses;
 using Core.Events;
 using Core.Roleplay;
-using Core.Roleplay.Progress;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +13,8 @@ namespace Core
     public abstract class EntityComponent : EventComponent
     {
         [SerializeField] public DamageSpecifier Damage;
+        [SerializeField] public DamageSpecifier Resistance;
+        [SerializeField] public DamageSpecifier Amplification;
         [SerializeField] public int DamageThreshold = 100; 
         [SerializeField] public HashSet<EntityStatus> Statuses = new();
 
@@ -29,6 +30,11 @@ namespace Core
         public void DisplayDamage()
         {
             Logger.Info(Damage.Display());
+        }
+        private void OnValidate()
+        {
+            Resistance.IsPercent = true;
+            Amplification.IsPercent = true;
         }
     }
 }

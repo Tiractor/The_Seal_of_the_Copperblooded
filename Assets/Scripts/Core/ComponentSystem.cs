@@ -27,6 +27,11 @@ namespace Core
         {
             EventSystem.Subscribe<TComponent, TEvent>(handler);
         }
+        protected static void Subscribe<TEvent>(Action<TEvent> handler)
+                where TEvent : SimpleEvent
+        {
+            EventSystem.GlobalSubscribe<TEvent>(handler);
+        }
         protected static void Unsubscribe<TComponent, TEvent>(Action<TComponent, TEvent> handler)
             where TEvent : IEvent
             where TComponent : EventComponent

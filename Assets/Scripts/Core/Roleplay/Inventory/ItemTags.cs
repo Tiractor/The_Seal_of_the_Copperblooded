@@ -4,8 +4,13 @@ namespace Core.Roleplay.Inventory
     {
         None = 0,
         Weapon,
+        Spell,
+        Amulet,
         Money,
         Armor,
-        Ring
+        Ring,
+
+        Resistance,
+        Amplification,
     }
 }

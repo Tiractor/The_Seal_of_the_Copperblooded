@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Core.Roleplay
 {
@@ -66,5 +67,29 @@ namespace Core.Roleplay
         Cellular,
         Poison
     }
+    public static class DamageTypeExtensions
+    {
+        private static readonly Dictionary<DamageType, string> _displayNames = new()
+    {
+        { DamageType.Heat, "Жар" },
+        { DamageType.Shock, "Электричество" },
+        { DamageType.Cold, "Холод" },
+        { DamageType.Caustic, "Кислота" },
+        { DamageType.Holy, "Святой" },
+        { DamageType.Taint, "Порча" },
+        { DamageType.Desiccation, "Иссушение" },
+        { DamageType.Blunt, "Дробящий" },
+        { DamageType.Slash, "Режущий" },
+        { DamageType.Piercing, "Колющий" },
+        { DamageType.Asphyxiation, "Удушье" },
+        { DamageType.Bloodloss, "Кровопотеря" },
+        { DamageType.Cellular, "Клеточный" },
+        { DamageType.Poison, "Яд" }
+    };
 
+        public static string ToLocalizedString(this DamageType damageType)
+        {
+            return _displayNames.TryGetValue(damageType, out var name) ? name : damageType.ToString();
+        }
+    }
 }

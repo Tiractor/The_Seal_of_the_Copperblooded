@@ -10,6 +10,7 @@ namespace Core.Roleplay
     public class DamageSpecifier
     {
         public Dictionary<DamageType, float> DamageDict {  get; private set; }
+        public bool IsPercent;
         public DamageSpecifier(Dictionary<DamageType, float> damage)
         {
             DamageDict = damage;
@@ -17,6 +18,11 @@ namespace Core.Roleplay
         public DamageSpecifier()
         {
             DamageDict = new();
+        }
+        public DamageSpecifier(bool isPercent)
+        {
+            DamageDict = new();
+            IsPercent = isPercent;
         }
         public float GetTotal()
         {
@@ -72,6 +78,68 @@ namespace Core.Roleplay
                 data += value.Key + ": " + value.Value + "\n";
             }
             return data;
+        }
+        public string DictDisplay()
+        {
+            string data = "";
+            foreach (var value in DamageDict)
+            {
+                if (value.Value != 0)
+                {
+                    var pe = IsPercent ? (value.Value * 100) + "%" : value.Value.ToString();
+                    data += DamageTypeExtensions.ToLocalizedString(value.Key) + ": " + pe + "\n";
+                }
+            }
+            return data;
+        }
+        public static DamageSpecifier operator *(DamageSpecifier first, DamageSpecifier second)
+        {
+            var result = new DamageSpecifier(first.IsPercent);
+            foreach (var pair in first.DamageDict)
+            {
+                if (second.DamageDict.TryGetValue(pair.Key, out var secondValue))
+                {
+                    result.Add(pair.Key, pair.Value * secondValue);
+                } 
+                else
+                    result.Add(pair.Key, pair.Value);
+            }
+            return result;
+        }
+        public static DamageSpecifier operator *(DamageSpecifier first, int second)
+        {
+            var result = new DamageSpecifier(first.IsPercent);
+            foreach (var pair in first.DamageDict)
+            {
+                result.Add(pair.Key, pair.Value * second);
+            }
+            return result;
+        }
+        public static DamageSpecifier operator +(DamageSpecifier first, int second)
+        {
+            var result = new DamageSpecifier(first.IsPercent);
+            foreach (var pair in first.DamageDict)
+            {
+                result.Add(pair.Key, pair.Value + second);
+            }
+            return result;
+        }
+        public static DamageSpecifier operator +(DamageSpecifier first, DamageSpecifier second)
+        {
+            var result = new DamageSpecifier(first.IsPercent);
+
+            var allKeys = new HashSet<DamageType>(first.DamageDict.Keys);
+            allKeys.UnionWith(second.DamageDict.Keys);
+
+            foreach (var key in allKeys)
+            {
+                float value1 = first.DamageDict.TryGetValue(key, out var v1) ? v1 : 0;
+                float value2 = second.DamageDict.TryGetValue(key, out var v2) ? v2 : 0;
+
+                result.Add(key, value1 + value2);
+            }
+
+            return result;
         }
     }
 
