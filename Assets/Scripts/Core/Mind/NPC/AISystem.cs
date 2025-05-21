@@ -20,7 +20,7 @@ namespace Core.Mind.NPC
 
         public override void SecondUpdate()
         {
-            base.SecondUpdate();
+            //base.SecondUpdate();
             foreach (var NPC in _NPC)
             {
                 if(NPC == null) _NPC.Remove(NPC);

@@ -9,6 +9,6 @@ public class MM_GameManager : MonoBehaviour
     }
     public void NewGame()
     {
-        SceneManager.LoadScene("Dungeon");
+        SceneManager.LoadScene("Playzone");
     }
 }

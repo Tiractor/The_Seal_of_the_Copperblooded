@@ -1,3 +1,4 @@
+using Core.EntityStatuses;
 using UnityEngine;
 
 namespace Core.Mind.Player
@@ -15,7 +16,11 @@ namespace Core.Mind.Player
                 }
             }
         }
-            
+        [ContextMenu("Add Status for test")]
+        public void AddBleed()
+        {
+            Statuses.Add(new Bleeded());
+        }
 
     }
 }

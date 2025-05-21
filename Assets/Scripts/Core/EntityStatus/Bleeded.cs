@@ -8,8 +8,9 @@ namespace Core.EntityStatuses
     [Serializable]
     public class Bleeded : EntityStatus
     {
+        public Bleeded() { icon = GameManager.instance.Prefabs.Bleeded; MaxTime = 10; }
         public override HashSet<EntityEffect> SecondEffect() 
-        { 
+        {
             var effects = new HashSet<EntityEffect>();
             effects.Add(TimeGoing(false));
 

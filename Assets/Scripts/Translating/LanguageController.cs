@@ -8,7 +8,7 @@ namespace Core.Language
         Russian,
         English
     }
-    public class LanguageController : EntitySystem
+    public class LanguageController : ComponentSystem
     {
         public class LanguageChangeEvent : SimpleEvent
         {

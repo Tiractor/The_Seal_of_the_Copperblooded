@@ -32,7 +32,6 @@ namespace Core
         }
         private void SystemsSecondUpdate()
         {
-            
             foreach (var system in _systems.Values)
             {
                 system.SecondUpdate();

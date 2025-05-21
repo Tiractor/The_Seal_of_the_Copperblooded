@@ -1,6 +1,9 @@
+using Core.EntityStatuses;
 using Core.Events;
+using Core.Mind.Player;
 using Core.Roleplay;
 using Core.Roleplay.Progress;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,17 +20,21 @@ namespace Core
         }
         public override void SecondUpdate()
         {
-            base.SecondUpdate();
             foreach (var entity in _entities) 
             {
                 var Temp = entity.Statuses.ToList();
                 foreach (var status in Temp)
                 {
+                    if (status.IsNotDisplayed && entity is PlayerComponent player && status.TimeProgress() != -1)
+                    {
+                        TriggerEvent(player, new DisplayStatusEvent(status));
+                        status.IsNotDisplayed = false;
+                    }
                     var effects = status.SecondEffect();
-                    if (effects == null) continue;
+                    if (effects == null || effects.Count == 0) continue;
                     foreach (var effect in effects)
                     {
-                        effect.Effect(entity);
+                        if (entity != null && effect != null) effect.Effect(entity);
                     }
                 }
             }

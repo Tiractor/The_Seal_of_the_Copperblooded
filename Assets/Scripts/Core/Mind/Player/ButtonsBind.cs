@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Core.Mind.Player
 {
-    public class ButtonsBind : EntitySystem
+    public class ButtonsBind : ComponentSystem
     {
         public static Dictionary<KeyCode, ComponentEvent> Binds { get; private set; } = new Dictionary<KeyCode, ComponentEvent>();
         public override void Initialize()

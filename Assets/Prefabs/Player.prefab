@@ -128,9 +128,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de64f87c806624c4eaa967cf3737864a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Progress: {fileID: 0}
+  Damage:
+    IsPercent: 0
+  Resistance:
+    IsPercent: 1
+  Amplification:
+    IsPercent: 1
   DamageThreshold: 100
-  PrimaryAttack: {fileID: 0}
+  experience: 0
+  level: 0
+  nextlvlexp: 5
+  PrimaryAttack: {fileID: 6623720149425566732}
   SecondaryAttack: {fileID: 0}
   TertiaryAttack: {fileID: 0}
 --- !u!54 &-7550488479587480539
@@ -468,6 +476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponEffects:
   - rid: 5528425258483449856
+  - rid: 7080482643046825986
+  Range: 2
   references:
     version: 2
     RefIds:
@@ -477,3 +487,7 @@ MonoBehaviour:
         _damage:
         - Type: 8
           Count: 5
+    - rid: 7080482643046825986
+      type: {class: SoundEffect, ns: Core.Sounds, asm: Assembly-CSharp}
+      data:
+        Sound: {fileID: 11400000, guid: 6204494a329de1540ac37c3eeb708376, type: 2}

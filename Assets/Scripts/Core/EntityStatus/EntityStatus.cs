@@ -8,11 +8,12 @@ namespace Core.EntityStatuses
     [Serializable]
     public abstract class EntityStatus
     {
-        private float MaxTime;
-        private float Time = -1;
-        private Sprite icon;
-        public virtual HashSet<EntityEffect> SecondEffect() { TimeGoing(false); return null; }
-        public virtual HashSet<EntityEffect> TickEffect() { TimeGoing(true); return null; }
+        protected float MaxTime = -1;
+        public float Time = -1;
+        public bool IsNotDisplayed = true;
+        public Sprite icon;
+        public virtual HashSet<EntityEffect> SecondEffect() { return null; }
+        public virtual HashSet<EntityEffect> TickEffect() { return null; }
 
         protected EntityEffect TimeGoing(bool IsTick)
         {
@@ -26,6 +27,14 @@ namespace Core.EntityStatuses
                 return eff;
             }
             return null;
+        }
+        public float TimeProgress()
+        {
+            return MaxTime != -1 ? Time / MaxTime : -1;
+        }
+        public string strTimeProgress()
+        {
+            return (int)Time/60+ ":"+Time%60;
         }
     }
 }

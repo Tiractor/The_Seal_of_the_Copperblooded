@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Prefabs
   m_EditorClassIdentifier: 
   ExpObject: {fileID: 3077528285233641683, guid: 69bbfdb11dc1d29429ead25ce83e9e2f, type: 3}
+  StatusDisplay: {fileID: 8973397964941701486, guid: 7e5e16e0d624d224d86a057bc59fe3c3, type: 3}
+  Bleeded: {fileID: 21300000, guid: 98206d4ab9f60ce4cb81b00f223e7920, type: 3}

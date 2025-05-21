@@ -42,7 +42,7 @@ namespace Core
         /// <summary>
         ///     Trigger Global Event
         /// </summary>
-        protected static void TriggerEvent<T>(T eventArgs)
+        public static void TriggerEvent<T>(T eventArgs)
             where T : SimpleEvent
         {
             EventSystem.TriggerEvent(eventArgs);

@@ -6,6 +6,7 @@ namespace Core.UI
         Resistance,
         Amplification,
         Exp,
-        Level
+        Level,
+        Status
     }
 }
