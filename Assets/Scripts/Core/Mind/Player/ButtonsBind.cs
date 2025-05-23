@@ -18,6 +18,7 @@ namespace Core.Mind.Player
             if (!Binds.Values.Any(e => e is PrimaryAttackEvent)) Binds.Add(KeyCode.Mouse0, new PrimaryAttackEvent());
             if (!Binds.Values.Any(e => e is SecondaryAttackEvent)) Binds.Add(KeyCode.Mouse1, new SecondaryAttackEvent());
             if (!Binds.Values.Any(e => e is TertiaryAttackEvent)) Binds.Add(KeyCode.Mouse2, new TertiaryAttackEvent());
+            if (!Binds.Values.Any(e => e is InventorySwitchEvent)) Binds.Add(KeyCode.Tab, new InventorySwitchEvent());
         }
         /*void OnButtonPress(PlayerComponent playerComponent, ButtonPressEvent args)
         {

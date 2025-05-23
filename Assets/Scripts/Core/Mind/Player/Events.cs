@@ -12,5 +12,21 @@ namespace Core.Mind.Player
             Button = button;
         }
     }
+    public enum GameResult 
+    {
+        TrueWin,
+        FalseWin,
+        Lose
+    }
+
+
+    public class Endgame : SimpleEvent
+    {
+        public GameResult Result;
+        public Endgame(GameResult result)
+        {
+            Result = result;
+        }
+    }
 
 }

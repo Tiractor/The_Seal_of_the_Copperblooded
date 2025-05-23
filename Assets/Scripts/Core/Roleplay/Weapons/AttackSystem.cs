@@ -38,7 +38,7 @@ namespace Core.Roleplay
                 }
                 if (target == null)
                 {
-                    Logger.Warn("Entity not found для " + hit.name);
+                    Logger.Warn("Entity не найден для " + hit.name);
                     continue;
                 }
                 Targets.Add(target);
@@ -49,6 +49,13 @@ namespace Core.Roleplay
         void OnAttack(WeaponComponent component, AttackEvent args)
         {
             Logger.Tech(component.gameObject.name);
+            if(args.Inititor != null)
+            {
+                foreach (var eff in component._selfEffects)
+                {
+                    eff.Effect(args.Inititor);
+                }
+            }
             foreach(var eff in component._weaponEffects)
             {
                 eff.Effect(args.Target);

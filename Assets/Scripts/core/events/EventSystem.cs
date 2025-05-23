@@ -95,10 +95,7 @@ namespace Core.Events
         where TEvent : IEvent
         {
             if (eventArgs is ComponentEvent e) TriggerTargetEvent(e);
-            else if (eventArgs is SimpleEvent s)
-            {
-                TriggerGlobalEvent(s);
-            }
+            else if (eventArgs is SimpleEvent s)  TriggerGlobalEvent(s);
         }
 
 

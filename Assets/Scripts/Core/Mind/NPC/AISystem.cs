@@ -35,9 +35,9 @@ namespace Core.Mind.NPC
                 else
                 {
                     NPC.TargetRange = Vector3.Distance(NPC.transform.position, NPC.Target.transform.position);
-                    if(NPC.TargetRange < NPC.PrimaryAttack.Range) TriggerEvent(NPC.PrimaryAttack, new AttackEvent(NPC.Target));
-                    else if (NPC.SecondaryAttack!= null && NPC.TargetRange < NPC.SecondaryAttack.Range) TriggerEvent(NPC.SecondaryAttack, new AttackEvent(NPC.Target));
-                    else if (NPC.SecondaryAttack != null && NPC.TargetRange < NPC.TertiaryAttack.Range) TriggerEvent(NPC.TertiaryAttack, new AttackEvent(NPC.Target));
+                    if(NPC.TargetRange < NPC.PrimaryAttack.Range) TriggerEvent(NPC.PrimaryAttack, new AttackEvent(NPC, NPC.Target));
+                    else if (NPC.SecondaryAttack!= null && NPC.TargetRange < NPC.SecondaryAttack.Range) TriggerEvent(NPC.SecondaryAttack, new AttackEvent(NPC, NPC.Target));
+                    else if (NPC.SecondaryAttack != null && NPC.TargetRange < NPC.TertiaryAttack.Range) TriggerEvent(NPC.TertiaryAttack, new AttackEvent(NPC, NPC.Target));
                     if (NPC.TargetRange > NPC.ChaseRange)
                     {
                         NPC.TargetRange = -1;

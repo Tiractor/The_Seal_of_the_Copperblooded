@@ -9,9 +9,15 @@ namespace Core.Roleplay
     public class AttackEvent : ComponentEvent 
     {
         public EntityComponent Target;
+        public EntityComponent Inititor;
         public AttackEvent(EntityComponent target)
         {
             this.Target = target;
+        }
+        public AttackEvent(EntityComponent inititor, EntityComponent target)
+        {
+            this.Target = target;
+            this.Inititor = inititor;
         }
         public AttackEvent(GameObject initiator, EntityComponent target)
         {

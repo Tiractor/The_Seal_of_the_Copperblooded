@@ -1,6 +1,7 @@
 using Core.EntityStatuses;
 using Core.Events;
 using Core.Mind.Player;
+using Core.Roleplay;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,13 +11,18 @@ namespace Core.UI
     public class StatsDisplaySystem : ComponentSystem
     {
         public static HashSet<StatDisplay> statDisplays = new HashSet<StatDisplay>();
+        public static HPDisplayComponent HP;
+        public static CharMenuComponent CM;
         public static HashSet<StatusDisplayerComponent> statusDisplayers = new HashSet<StatusDisplayerComponent>();
         public override void Initialize()
         {
             Subscribe<StatDisplay, ComponentInitEvent>(OnComponentInit);
+            Subscribe<HPDisplayComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<StatusDisplayerComponent, ComponentInitEvent>(OnComponentInit);
+            Subscribe<CharMenuComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<PlayerComponent, ComponentInitEvent>(OnDataInit);
             Subscribe<PlayerComponent, DisplayStatusEvent>(NewStatus);
+            Subscribe<PlayerComponent, DamageEvent>(UpdateHPDisplay);
             Subscribe<StatDisplay, SimpleComponentEvent>(Refresh);
             Subscribe<UpdateDisplayEvent>(TargetRefresh);
         }
@@ -27,6 +33,35 @@ namespace Core.UI
                 if(item.what == args.What)
                     DataRefresh(item);
             }
+        }
+        private void UpdateHPDisplay(PlayerComponent component, DamageEvent args)
+        {
+            var health = component.Damage.GetTotal();
+            var maxhealth = component.DamageThreshold;
+            int stage = GetStageFromHealth(maxhealth-health);
+            stage = Mathf.Clamp(stage, 0, HP.healthStages.Length - 1);
+            HP.healthBarImage.sprite = HP.healthStages[stage];
+        }
+        int GetStageFromHealth(float hp, float threshold = 50f)
+        {
+            for (int i = 0; i < HP.healthStages.Length; i++)
+            {
+                if (hp >= threshold) 
+                {
+                    return i;
+                }
+                    
+                threshold /= 2f; //  ажда€ следующа€ граница в 2 раза меньше
+            }
+            return HP.healthStages.Length - 1;
+        }
+        private void OnComponentInit(HPDisplayComponent component, ComponentInitEvent args)
+        {
+            HP = component;
+        }
+        private void OnComponentInit(CharMenuComponent component, ComponentInitEvent args)
+        {
+            CM = component;
         }
         private void OnComponentInit(StatDisplay component, ComponentInitEvent args)
         {
