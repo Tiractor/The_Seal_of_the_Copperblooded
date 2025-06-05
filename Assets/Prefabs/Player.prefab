@@ -476,18 +476,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponEffects:
   - rid: 5528425258483449856
-  - rid: 7080482643046825986
+  _selfEffects:
+  - rid: 4480297791824855044
+  - rid: 4480297802133667878
   Range: 2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 4480297791824855044
+      type: {class: SoundEffect, ns: Core.Sounds, asm: Assembly-CSharp}
+      data:
+        Sound: {fileID: 11400000, guid: 6204494a329de1540ac37c3eeb708376, type: 2}
+    - rid: 4480297802133667878
+      type: {class: StatusGiveEffect, ns: Core.EntityEffects, asm: Assembly-CSharp}
+      data:
+        target:
+          rid: -2
     - rid: 5528425258483449856
       type: {class: StraightDamageEffect, ns: Core.EntityEffects, asm: Assembly-CSharp}
       data:
         _damage:
         - Type: 8
           Count: 5
-    - rid: 7080482643046825986
-      type: {class: SoundEffect, ns: Core.Sounds, asm: Assembly-CSharp}
-      data:
-        Sound: {fileID: 11400000, guid: 6204494a329de1540ac37c3eeb708376, type: 2}

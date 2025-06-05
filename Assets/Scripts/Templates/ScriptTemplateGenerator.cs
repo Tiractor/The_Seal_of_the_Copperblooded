@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using System.IO;
@@ -43,3 +44,4 @@ public class ScriptTemplateGenerator
         return Path.GetDirectoryName(path);
     }
 }
+#endif

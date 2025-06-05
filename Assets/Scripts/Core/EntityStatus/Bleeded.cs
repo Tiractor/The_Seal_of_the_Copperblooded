@@ -2,13 +2,16 @@ using Core.EntityEffects;
 using Core.Roleplay;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Core.EntityStatuses
 {
     [Serializable]
     public class Bleeded : EntityStatus
     {
-        public Bleeded() { icon = GameManager.instance.Prefabs.Bleeded; MaxTime = 10; }
+        private Sprite _icon;
+        public override Sprite icon => _icon ??= GameManager.instance?.Prefabs.Bleeded;
+        public Bleeded() { MaxTime = 10; }
         public override HashSet<EntityEffect> SecondEffect() 
         {
             var effects = new HashSet<EntityEffect>();

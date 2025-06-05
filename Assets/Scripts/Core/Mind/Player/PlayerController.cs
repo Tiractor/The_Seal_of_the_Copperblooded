@@ -1,5 +1,3 @@
-using System.Globalization;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 namespace Core.Mind.Player

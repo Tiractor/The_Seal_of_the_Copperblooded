@@ -1,6 +1,8 @@
+using Core.EntityStatuses;
 using Core.Events;
 using Core.Roleplay;
 using Core.UI;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 
@@ -19,6 +21,7 @@ namespace Core.Mind.Player
         }
         private void OnPrimaryAttack(PlayerComponent component, PrimaryAttackEvent args)
         {
+            if (component.Statuses.Any(s => s is PrimaryAttackCooldown)) return;
             var Targets = AttackSystem.SplashAttack(component.transform, component.PrimaryAttack.Range);
             foreach (var target in Targets)
             {

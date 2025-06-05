@@ -8,13 +8,13 @@ namespace Core.EntityStatuses
     [Serializable]
     public abstract class EntityStatus
     {
-        protected float MaxTime = -1;
+        [NonSerialized] protected float MaxTime = -1;
         public float Time = -1;
         public bool IsNotDisplayed = true;
-        public Sprite icon;
+        [HideInInspector] public virtual Sprite icon { get; protected set; }
         public virtual HashSet<EntityEffect> SecondEffect() { return null; }
         public virtual HashSet<EntityEffect> TickEffect() { return null; }
-
+            
         protected EntityEffect TimeGoing(bool IsTick)
         {
             if (MaxTime == -1) return null;
