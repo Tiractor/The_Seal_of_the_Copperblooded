@@ -1,6 +1,7 @@
 using Core.EntityStatuses;
 using Core.Events;
 using Core.Roleplay;
+using Core.Roleplay.Inventory;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Core
         [SerializeField] public DamageSpecifier Damage;
         [SerializeField] public DamageSpecifier Resistance;
         [SerializeField] public DamageSpecifier Amplification;
+        [SerializeField] public InventoryComponent Inventory;
         [SerializeField] public int DamageThreshold = 100; 
         [SerializeField] public HashSet<EntityStatus> Statuses = new();
 
@@ -23,7 +25,7 @@ namespace Core
         {
             foreach (var stat in Statuses)
             {
-                Logger.Info(stat.GetType().Name);
+                Logger.Info(stat.GetType().Name + " - " + stat.Time + " " + stat.TimeProgress());
             }
         }
         [ContextMenu("Damages")]

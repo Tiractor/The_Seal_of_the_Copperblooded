@@ -11,7 +11,6 @@ namespace Core.Roleplay.Inventory
         public Sprite icon;
         public bool stackable = false;
         public int maxStack = 1;
-        public int amount = 1;
         public List<ItemTags> Tags;
         public bool canBeEquip = false; 
 

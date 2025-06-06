@@ -1,13 +1,14 @@
+using Core.Events;
 using UnityEngine;
 namespace Core.Mind.Player
 {
-    public class CameraController : MonoBehaviour
+    public class CameraController : EventComponent
     {
         [SerializeField]
         Transform character;
         public float sensitivity = 2;
         public float smoothing = 1.5f;
-
+        public Camera Camera;
         Vector2 velocity;
         Vector2 frameVelocity;
 
@@ -16,16 +17,13 @@ namespace Core.Mind.Player
         {
             // Get the character from the FirstPersonMovement in parents.
             character = GetComponentInParent<PlayerController>().transform;
+            Camera = GetComponent<Camera>();
         }
 
-        void Start()
-        {
-            // Lock the mouse cursor to the game screen.
-            //Cursor.lockState = CursorLockMode.Locked;
-        }
 
         void Update()
         {
+            if (Cursor.lockState == CursorLockMode.None) return;
             // Get smooth velocity.
             Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             Vector2 rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);

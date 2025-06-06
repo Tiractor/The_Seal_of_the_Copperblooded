@@ -5,10 +5,9 @@ namespace Core.Collide
     [RequireComponent(typeof(Collider))]
     public abstract class CollideableComponent : EventComponent
     {
-        void OnCollisionEnter(Collision collision)
+        void OnTriggerEnter(Collider other)
         {
-            Logger.Tech("Hit");
-            collision.collider.TryGetComponent<EntityComponent>(out var Comp);
+            other.TryGetComponent<EntityComponent>(out var Comp);
 
             ComponentSystem.TriggerEvent(this, new CollideEvent(this, Comp));
         }

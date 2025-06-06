@@ -11,7 +11,11 @@ namespace Core.EntityStatuses
     {
         private Sprite _icon;
         public override Sprite icon => _icon ??= GameManager.instance?.Prefabs.Bleeded;
-        public Bleeded() { MaxTime = 10; }
+        public Bleeded() 
+        { 
+            MaxTime = 10;
+            Time = MaxTime;
+        }
         public override HashSet<EntityEffect> SecondEffect() 
         {
             var effects = new HashSet<EntityEffect>();

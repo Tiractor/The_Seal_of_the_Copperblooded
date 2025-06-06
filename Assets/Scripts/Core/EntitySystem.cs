@@ -25,11 +25,6 @@ namespace Core
                 var Temp = entity.Statuses.ToList();
                 foreach (var status in Temp)
                 {
-                    if (status.IsNotDisplayed && entity is PlayerComponent player && status.TimeProgress() != -1)
-                    {
-                        TriggerEvent(player, new DisplayStatusEvent(status));
-                        status.IsNotDisplayed = false;
-                    }
                     var effects = status.SecondEffect();
                     if (effects == null || effects.Count == 0) continue;
                     foreach (var effect in effects)
@@ -41,16 +36,21 @@ namespace Core
         }
         public override void TickUpdate()
         {
-            base.TickUpdate();
             foreach (var entity in _entities)
             {
-                foreach (var status in entity.Statuses)
+                var Temp = entity.Statuses.ToList();
+                foreach (var status in Temp)
                 {
+                    if (status.IsNotDisplayed && entity is PlayerComponent player && status.TimeProgress() != -1)
+                    {
+                        TriggerEvent(player, new DisplayStatusEvent(status));
+                        status.IsNotDisplayed = false;
+                    }
                     var effects = status.TickEffect();
-                    if (effects == null) continue;
+                    if (effects == null || effects.Count == 0) continue;
                     foreach (var effect in effects)
                     {
-                        effect.Effect(entity);
+                        if (entity != null && effect != null) effect.Effect(entity);
                     }
                 }
             }

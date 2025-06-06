@@ -18,3 +18,6 @@ MonoBehaviour:
   PrimaryAttack: {fileID: 21300000, guid: b99227d1db38f894a87d24b7322e3cff, type: 3}
   SecondaryAttack: {fileID: 21300000, guid: 98d212f5749a91049b1c19a0b330131f, type: 3}
   TertiaryAttack: {fileID: 21300000, guid: 5839194cd80d49e49bf64b7a3779333e, type: 3}
+  ItemNull:
+    item: {fileID: 11400000, guid: 6ca5a6e3bb66d164782c34d74c032b5b, type: 2}
+    amount: 1

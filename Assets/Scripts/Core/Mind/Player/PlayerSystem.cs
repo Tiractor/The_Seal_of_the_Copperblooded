@@ -3,6 +3,7 @@ using Core.Events;
 using Core.Roleplay;
 using Core.UI;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
@@ -35,11 +36,15 @@ namespace Core.Mind.Player
         }
         private void OnDamage(PlayerComponent component, DamageEvent args)
         {
-            TriggerEvent(new UpdateDisplayEvent(Display.Hitpoints));
+            TriggerEvent(new UpdateDisplayEvent(Core.UI.Display.Hitpoints));
         }
         private void OnInventory(PlayerComponent component, InventorySwitchEvent args)
         {
-            StatsDisplaySystem.CM.gameObject.SetActive(!StatsDisplaySystem.CM.gameObject.active);
+            var bol = StatsDisplaySystem.CM.gameObject.active;
+            StatsDisplaySystem.CM.gameObject.SetActive(!bol);
+            if (bol) Cursor.lockState = CursorLockMode.Locked;
+            else Cursor.lockState = CursorLockMode.None;
+
         }
         private void OnComponentInit(PlayerComponent component, ComponentInitEvent args)
         {

@@ -12,6 +12,7 @@ namespace Core.Mind.Player
                 if (Input.GetKeyDown(key.Key))
                 {
                     if(GameManager.instance.Debugging) Logger.Tech($"Нажата клавиша: {key}");
+                    if (key.Value.inGameOnly == true && Cursor.lockState == CursorLockMode.None) continue;
                     ComponentSystem.TriggerEvent(this, key.Value);
                 }
             }
@@ -19,7 +20,7 @@ namespace Core.Mind.Player
         [ContextMenu("Add Status for test")]
         public void AddBleed()
         {
-            Statuses.Add(new Bleeded());
+            Statuses.Add(StatusReturner.EnumToStatus(EntityStatuses.Statuses.Bleeded));
         }
 
     }

@@ -11,4 +11,12 @@ namespace Core.Roleplay.Inventory
             IsEquipped = isEquipped;
         }
     }
+    public class AddItemEvent : ComponentEvent
+    {
+        public SlotData item;
+        public AddItemEvent(SlotData newItem)
+        {
+            item = newItem;
+        }
+    }
 }
