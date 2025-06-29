@@ -1,7 +1,3 @@
-using Core.Events;
-using TMPro;
-using UnityEngine.UI;
-
 namespace Core.Roleplay.Inventory
 {
 
@@ -14,6 +10,17 @@ namespace Core.Roleplay.Inventory
 
         public void Add(int value) => amount += value;
         public void Remove(int value) => amount -= value;
-       
+
+        public SlotData(SlotData slotData)
+        {
+            item = slotData.item;
+            amount = slotData.amount;
+        }
+        public SlotData()
+        {
+            item = null;
+            amount = 0;
+        }
+
     }
 }

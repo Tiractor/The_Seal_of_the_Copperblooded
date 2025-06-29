@@ -8,6 +8,7 @@ namespace Core.Mind.Player
     public class SecondaryAttackEvent : ButtonEvent { }
     public class TertiaryAttackEvent : ButtonEvent { }
     public class InventorySwitchEvent : ButtonEvent { public InventorySwitchEvent() { inGameOnly = false; } }
+    public class CodexSwitchEvent : ButtonEvent { public CodexSwitchEvent() { inGameOnly = false; } }
     public class InteractEvent : ButtonEvent { }
 
 }

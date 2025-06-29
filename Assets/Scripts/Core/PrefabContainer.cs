@@ -5,6 +5,8 @@ public class PrefabContainer : ScriptableObject
 {
     public GameObject ExpObject;
     public GameObject StatusDisplay;
+    public GameObject FansyButton;
+    public GameObject EntryButton;
     public Sprite Bleeded;
     public Sprite PrimaryAttack;
     public Sprite SecondaryAttack;

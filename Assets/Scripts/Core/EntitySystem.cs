@@ -1,5 +1,6 @@
 using Core.EntityStatuses;
 using Core.Events;
+using Core.Mind.NPC;
 using Core.Mind.Player;
 using Core.Roleplay;
 using Core.Roleplay.Progress;
@@ -38,6 +39,7 @@ namespace Core
         {
             foreach (var entity in _entities)
             {
+                FlashTick(entity.Flash);
                 var Temp = entity.Statuses.ToList();
                 foreach (var status in Temp)
                 {
@@ -55,9 +57,24 @@ namespace Core
                 }
             }
         }
+        private void FlashTick(DamageFlashComponent component)
+        {
+            if (!component.isFlashing) return;
+
+            component.timer -= 0.1f;
+            if (component.timer <= 0f)
+            {
+                if (component.targetRenderer != null)
+                {
+                    component.targetRenderer.material.color = component.originalColor;
+                }
+                component.isFlashing = false;
+            }
+        }
         private void OnDamage(EntityComponent component, DamageEvent args)
         {
             var dat = args.Damage * component.Resistance;
+            Logger.Warn(component.Resistance.DictDisplay());
             component.Damage.Add(dat);
             if (component.DamageThreshold <= component.Damage.GetTotal()) { 
                 component.TryGetComponent<LevelComponent>(out var progress);
@@ -65,10 +82,29 @@ namespace Core
                 else GameObject.Destroy(component.gameObject);
             }
             Logger.Info(component.Damage.Display());
+            OnDamage(component.Flash, args);
+        }
+        private void OnDamage(DamageFlashComponent component, DamageEvent evt)
+        {
+            if (component.targetRenderer == null) return;
+
+            var mat = component.targetRenderer.material;
+
+            if (!component.isFlashing)
+            {
+                component.originalColor = mat.color;
+            }
+
+            mat.color = component.flashColor;
+            component.timer = component.flashDuration;
+            component.isFlashing = true;
         }
         private void OnComponentInit(EntityComponent component, ComponentInitEvent args) 
         {
             _entities.Add(component);
+            component.Flash = component.GetComponent<DamageFlashComponent>();
+            component.Flash.targetRenderer = component.GetComponent<Renderer>();
+            if(component.Flash.targetRenderer == null) component.Flash.targetRenderer = component.GetComponentInChildren<Renderer>();
         }
 
     }

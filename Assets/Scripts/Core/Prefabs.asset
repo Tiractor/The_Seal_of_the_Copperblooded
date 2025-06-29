@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExpObject: {fileID: 3077528285233641683, guid: 69bbfdb11dc1d29429ead25ce83e9e2f, type: 3}
   StatusDisplay: {fileID: 8973397964941701486, guid: 7e5e16e0d624d224d86a057bc59fe3c3, type: 3}
+  FansyButton: {fileID: 6002494134389093210, guid: 882118a4300f683429403398ddb1f5ba, type: 3}
+  EntryButton: {fileID: 6002494134389093210, guid: ba359d8c48e885346b24b76a5171890d, type: 3}
   Bleeded: {fileID: 21300000, guid: 98206d4ab9f60ce4cb81b00f223e7920, type: 3}
   PrimaryAttack: {fileID: 21300000, guid: b99227d1db38f894a87d24b7322e3cff, type: 3}
   SecondaryAttack: {fileID: 21300000, guid: 98d212f5749a91049b1c19a0b330131f, type: 3}

@@ -15,7 +15,7 @@ namespace Core.Sounds
         }
         public override void SecondUpdate()
         {
-            base.SecondUpdate();
+            if (subtitleUI == null) return;
             if (subtitleUI.duration > 0) subtitleUI.duration--;
             else
             {

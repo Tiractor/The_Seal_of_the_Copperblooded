@@ -1,9 +1,5 @@
-using Core.EntityStatuses;
 using System;
-using System.Linq;
-using UnityEngine;
 using Core.Roleplay.Inventory;
-using Core.Roleplay;
 
 namespace Core.EntityEffects
 {
@@ -14,7 +10,7 @@ namespace Core.EntityEffects
        public SlotData? target;
         public override void Effect<T>(T component)
         {
-            ComponentSystem.TriggerEvent(component.Inventory, new AddItemEvent(target));
+            ComponentSystem.TriggerEvent(component.Inventory, new AddItemEvent(new SlotData(target)));
         }
         public GiveItemEffect(SlotData Target)
         {

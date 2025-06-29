@@ -40,7 +40,7 @@ namespace Core.Interactable
                 eff.Effect(component);
             }
         }
-        public override void SecondUpdate()
+        public override void TickUpdate()
         {
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 

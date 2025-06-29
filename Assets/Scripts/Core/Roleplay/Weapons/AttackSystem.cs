@@ -1,9 +1,7 @@
 using Core.Events;
-using Core.Mind;
 using Core.Roleplay.Attack;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Core.Roleplay
 {

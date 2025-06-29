@@ -2,6 +2,7 @@ using Core.EntityStatuses;
 using Core.Events;
 using Core.Roleplay;
 using Core.UI;
+using Core.UI.Codex;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,10 +20,11 @@ namespace Core.Mind.Player
             Subscribe<PlayerComponent, DeathEvent>(OnDeath);
             Subscribe<PlayerComponent, PrimaryAttackEvent>(OnPrimaryAttack);
             Subscribe<PlayerComponent, InventorySwitchEvent>(OnInventory);
+            Subscribe<PlayerComponent, CodexSwitchEvent>(OnCodex);
         }
         private void OnPrimaryAttack(PlayerComponent component, PrimaryAttackEvent args)
         {
-            if (component.Statuses.Any(s => s is PrimaryAttackCooldown)) return;
+            if (component.Statuses.Any(s => s is PrimaryAttackCooldown) || component.PrimaryAttack.gameObject.active == false) return;
             var Targets = AttackSystem.SplashAttack(component.transform, component.PrimaryAttack.Range);
             foreach (var target in Targets)
             {
@@ -42,6 +44,14 @@ namespace Core.Mind.Player
         {
             var bol = StatsDisplaySystem.CM.gameObject.active;
             StatsDisplaySystem.CM.gameObject.SetActive(!bol);
+            if (bol) Cursor.lockState = CursorLockMode.Locked;
+            else Cursor.lockState = CursorLockMode.None;
+
+        }
+        private void OnCodex(PlayerComponent component, CodexSwitchEvent args)
+        {
+            var bol = CodexSystem.codexComponent.gameObject.active;
+            CodexSystem.codexComponent.gameObject.SetActive(!bol);
             if (bol) Cursor.lockState = CursorLockMode.Locked;
             else Cursor.lockState = CursorLockMode.None;
 
