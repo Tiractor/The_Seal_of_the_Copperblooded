@@ -35,13 +35,16 @@ namespace Core.Interactable
         }
         private void OnInteract(PlayerComponent component, InteractEvent args)
         {
+            Debug.Log(current);
             foreach (var eff in current._interactEffects)
             {
                 eff.Effect(component);
             }
+            interactUI?.Hide();
         }
         public override void TickUpdate()
         {
+            if (mainCamera == null) return;
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))

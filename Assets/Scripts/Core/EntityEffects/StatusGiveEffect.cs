@@ -12,6 +12,8 @@ namespace Core.EntityEffects
         public override void Effect<T>(T component)
         {
             component.Statuses.Add(StatusReturner.EnumToStatus(target));
+            Debug.Log(component + " " + target.ToString());
+            component.DisplayStatuses();
         }
     }
 }

@@ -18,12 +18,15 @@ namespace Core
         {
             Subscribe<EntityComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<EntityComponent, DamageEvent>(OnDamage);
+            Subscribe<EntityComponent, DeathEvent>(OnDeath);
         }
         public override void SecondUpdate()
         {
             foreach (var entity in _entities) 
             {
                 var Temp = entity.Statuses.ToList();
+                    
+                
                 foreach (var status in Temp)
                 {
                     var effects = status.SecondEffect();
@@ -84,6 +87,13 @@ namespace Core
             Logger.Info(component.Damage.Display());
             OnDamage(component.Flash, args);
         }
+        private void OnDeath(EntityComponent component, DeathEvent args)
+        {
+            foreach (var eff in component._deathEffects)
+            {
+                eff.Effect(component);
+            }
+        }
         private void OnDamage(DamageFlashComponent component, DamageEvent evt)
         {
             if (component.targetRenderer == null) return;
@@ -103,7 +113,7 @@ namespace Core
         {
             _entities.Add(component);
             component.Flash = component.GetComponent<DamageFlashComponent>();
-            component.Flash.targetRenderer = component.GetComponent<Renderer>();
+            if(component.Flash.targetRenderer == null) component.Flash.targetRenderer = component.GetComponent<Renderer>();
             if(component.Flash.targetRenderer == null) component.Flash.targetRenderer = component.GetComponentInChildren<Renderer>();
         }
 

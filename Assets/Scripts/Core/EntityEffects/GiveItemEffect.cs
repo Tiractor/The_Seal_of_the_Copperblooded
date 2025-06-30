@@ -18,7 +18,7 @@ namespace Core.EntityEffects
         }
         public GiveItemEffect()
         {
-            target = GameManager.instance?.Prefabs.ItemNull;
+            target = null;
         }
     }
 }

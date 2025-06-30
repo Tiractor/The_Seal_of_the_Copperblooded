@@ -10,7 +10,7 @@ namespace Core.EntityStatuses
     {
         private Sprite _icon;
         public override Sprite icon => _icon ??= GameManager.instance?.Prefabs.PrimaryAttack;
-        public PrimaryAttackCooldown() { MaxTime = 1; }
+        public PrimaryAttackCooldown() { MaxTime = 2; }
         public override HashSet<EntityEffect> TickEffect() 
         {
             var effects = new HashSet<EntityEffect>();

@@ -8,6 +8,7 @@ public class PrefabContainer : ScriptableObject
     public GameObject FansyButton;
     public GameObject EntryButton;
     public Sprite Bleeded;
+    public Sprite Poisoned;
     public Sprite PrimaryAttack;
     public Sprite SecondaryAttack;
     public Sprite TertiaryAttack;

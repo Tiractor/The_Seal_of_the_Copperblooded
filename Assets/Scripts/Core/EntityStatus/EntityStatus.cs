@@ -9,7 +9,7 @@ namespace Core.EntityStatuses
     public abstract class EntityStatus
     {
         protected float MaxTime = -1;
-        public float Time = -1;
+        public float Time = -2;
         public bool IsNotDisplayed = true;
         [HideInInspector] public virtual Sprite icon { get; protected set; }
         public virtual HashSet<EntityEffect> SecondEffect() { return null; }
@@ -18,6 +18,7 @@ namespace Core.EntityStatuses
         protected EntityEffect TimeGoing(bool IsTick)
         {
             if (MaxTime == -1) return null;
+            if (Time == -2) Time = MaxTime;
             if (IsTick) Time -= 0.1f;
             else Time -= 1;
             if (Time < 0)

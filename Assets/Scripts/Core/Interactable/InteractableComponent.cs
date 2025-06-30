@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Core.Interactable
 {
+    [RequireComponent(typeof(Collider))]
     public class InteractableComponent : EventComponent
     {
-        public string prompt = "Press E to interact";
+        public string prompt = "Нажмите E для взаимодействия";
         [HideInInspector] public Renderer highlightRenderer;
         public Color highlightColor = Color.yellow;
 

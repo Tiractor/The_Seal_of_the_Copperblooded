@@ -30,6 +30,12 @@ namespace Core.Roleplay.Inventory
         {
             foreach(var slot in component.slots)
             {
+                if(slot.data.item == args.item.item && slot.data.item.maxStack >= slot.data.amount + args.item.amount)
+                {
+                    slot.data.amount += args.item.amount;
+                    Refresh(component);
+                    return;
+                }
                 if(slot.data.item == null) 
                 {
                     slot.data = args.item;

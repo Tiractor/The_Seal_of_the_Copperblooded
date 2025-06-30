@@ -1,3 +1,4 @@
+using Core.EntityEffects;
 using Core.EntityStatuses;
 using Core.Events;
 using Core.Mind.NPC;
@@ -19,6 +20,7 @@ namespace Core
         [SerializeField] public DamageSpecifier Resistance;
         [SerializeField] public DamageSpecifier Amplification;
         [SerializeField] public DamageFlashComponent Flash;
+        [SerializeReference] public EntityEffect[] _deathEffects = new EntityEffect[0];
         [SerializeField] public InventoryComponent Inventory;
         [SerializeField] public int DamageThreshold = 100; 
         [SerializeField] public HashSet<EntityStatus> Statuses = new();

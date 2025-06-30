@@ -34,6 +34,7 @@ namespace Core.Sounds
         {
             if (subtitleUI != null) return;
             subtitleUI = component;
+            subtitleUI.text.text = string.Empty;
         }
         private void NewSound(NewSoundEvent args)
         {

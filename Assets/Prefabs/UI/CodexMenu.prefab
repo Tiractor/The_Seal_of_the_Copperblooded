@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2960933171999527431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 460.5, y: -125}
+  m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4089865902317399565
 CanvasRenderer:
@@ -388,7 +388,8 @@ GameObject:
   - component: {fileID: 2960933171999527431}
   - component: {fileID: 4701569163447352654}
   - component: {fileID: 867309975529742332}
-  - component: {fileID: 9209677204451073958}
+  - component: {fileID: 1132899626715640667}
+  - component: {fileID: 4094694192890098326}
   m_Layer: 5
   m_Name: CodexEntry
   m_TagString: Untagged
@@ -452,7 +453,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &9209677204451073958
+--- !u!114 &1132899626715640667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -461,12 +462,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3883546182367088515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
-    m_Right: 50
+    m_Left: 0
+    m_Right: 0
     m_Top: 100
     m_Bottom: 0
   m_ChildAlignment: 1
@@ -478,6 +479,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4094694192890098326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3883546182367088515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd576e7cf009664a8f8853b3a20ac06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  Title: {fileID: 3657614705349506497}
+  Text: {fileID: 6543233174409167891}
 --- !u!1 &4434603913923726713
 GameObject:
   m_ObjectHideFlags: 0

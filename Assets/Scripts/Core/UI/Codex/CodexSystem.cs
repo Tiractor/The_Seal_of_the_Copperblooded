@@ -1,12 +1,11 @@
 using Core.Events;
-using Core.Roleplay.Inventory;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Core.UI.Codex
 {
     public class CodexSystem : ComponentSystem
     {
-        public HashSet<string> unlockedEntries = new(); // хранит ID открытых записей
+        public static HashSet<string> unlockedEntries = new(); // хранит ID открытых записей
         public static CodexComponent codexComponent;
         private CodexDisplayComponent display;
         public override void Initialize()

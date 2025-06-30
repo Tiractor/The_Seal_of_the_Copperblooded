@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 46a8a387cdc217d418397a334377618d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -226,16 +226,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 4726566503083203256}
   display:
-    rid: 7080482435116040192
+    rid: 4480298361025462272
   round: {fileID: 267060261091173608}
   icon: {fileID: 6954823954134194049}
   references:
     version: 2
     RefIds:
-    - rid: 7080482435116040192
+    - rid: 4480298361025462272
       type: {class: Fired, ns: Core.EntityStatuses, asm: Assembly-CSharp}
       data:
-        icon: {fileID: 0}
+        Time: -1
+        IsNotDisplayed: 1
 --- !u!1 &9008345331147860021
 GameObject:
   m_ObjectHideFlags: 0
