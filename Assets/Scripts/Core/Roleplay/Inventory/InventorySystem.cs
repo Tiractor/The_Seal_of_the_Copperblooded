@@ -13,6 +13,7 @@ namespace Core.Roleplay.Inventory
             Subscribe<InventoryComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<InventoryComponent, SimpleComponentEvent>(OnUpdate);
             Subscribe<InventorySlot, EquipEvent>(OnEquip);
+            Subscribe<InventoryComponent, AddItemEvent>(NewItem);
         }
         private void OnComponentInit(InventoryComponent component, ComponentInitEvent args)
         {
@@ -24,6 +25,24 @@ namespace Core.Roleplay.Inventory
             }
             list.Add(component);
             Inventories.Add(component.UID, list);
+        }
+        private void NewItem(InventoryComponent component, AddItemEvent args)
+        {
+            foreach(var slot in component.slots)
+            {
+                if(slot.data.item == args.item.item && slot.data.item.maxStack >= slot.data.amount + args.item.amount)
+                {
+                    slot.data.amount += args.item.amount;
+                    Refresh(component);
+                    return;
+                }
+                if(slot.data.item == null) 
+                {
+                    slot.data = args.item;
+                    Refresh(component);
+                    return;
+                }
+            }
         }
         private void OnUpdate(InventoryComponent component, SimpleComponentEvent args)
         {

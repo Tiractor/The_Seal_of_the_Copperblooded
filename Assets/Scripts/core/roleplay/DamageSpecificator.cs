@@ -99,7 +99,8 @@ namespace Core.Roleplay
             {
                 if (second.DamageDict.TryGetValue(pair.Key, out var secondValue))
                 {
-                    result.Add(pair.Key, pair.Value * secondValue);
+                    result.Add(pair.Key, pair.Value * (1 - secondValue));
+                    Logger.Error(pair.Value + " " + secondValue + " " + pair.Value * (1 - secondValue));
                 } 
                 else
                     result.Add(pair.Key, pair.Value);

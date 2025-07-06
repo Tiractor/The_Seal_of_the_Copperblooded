@@ -20,10 +20,10 @@ namespace Core.Mind.NPC
 
         public override void SecondUpdate()
         {
-            //base.SecondUpdate();
             foreach (var NPC in _NPC)
             {
                 if(NPC == null) _NPC.Remove(NPC);
+                if (NPC.gameObject.active == false) continue;
                 if (NPC.Target == null) 
                 {
                     foreach (var player in _targets)

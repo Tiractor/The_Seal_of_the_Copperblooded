@@ -121,13 +121,15 @@ namespace Core.Roleplay.Inventory
                 (data.item, dropped.data.item) = (dropped.data.item, data.item);
                 (data.amount, dropped.data.amount) = (dropped.data.amount, data.amount);
             }
-            if (data.item != null && data.item is Equipment e)
-            {
-                ComponentSystem.TriggerEvent(this, new EquipEvent(e, isEquipSlot));
-            }
-            if (dropped.data.item != null && dropped.data.item is Equipment s)
-            {
-                ComponentSystem.TriggerEvent(this, new EquipEvent(s, !isEquipSlot));
+            if(isEquipSlot || dropped.isEquipSlot) { 
+                if (data.item != null && data.item is Equipment e)
+                {
+                    ComponentSystem.TriggerEvent(this, new EquipEvent(e, isEquipSlot));
+                }
+                if (dropped.data.item != null && dropped.data.item is Equipment s)
+                {
+                    ComponentSystem.TriggerEvent(this, new EquipEvent(s, !isEquipSlot));
+                }
             }
             RefreshData();
             dropped.RefreshData();

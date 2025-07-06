@@ -1981,7 +1981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ed612561d168c4597e59389c882244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UID: -1
+  UID: 2
   slots:
   - {fileID: 7136234980995076368}
   - {fileID: 311445453492535188}

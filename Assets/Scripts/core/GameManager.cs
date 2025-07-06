@@ -15,7 +15,8 @@ namespace Core
         public PrefabContainer Prefabs;
         private void Awake()
         {
-            if(instance == null) instance = this;
+            DontDestroyOnLoad(gameObject);
+            if (instance == null) instance = this;
             else DestroyImmediate(gameObject);
             InitializeAllComponentSystems();
         }

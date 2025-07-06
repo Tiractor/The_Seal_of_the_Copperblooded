@@ -24,8 +24,8 @@ public class ScriptTemplateGenerator
     private static void CreateScriptFromTemplate(string defaultFileName, string templatePath)
     {
         string folderPath = GetActiveFolderPath();
-        string fullPath = Path.Combine(folderPath, defaultFileName);
-        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, fullPath);
+        string uniquePath = AssetDatabase.GenerateUniqueAssetPath(Path.Combine(folderPath, defaultFileName + ".cs"));
+        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, uniquePath);
     }
 
     private static string GetActiveFolderPath()

@@ -2,9 +2,13 @@ using Core.Events;
 
 namespace Core.Mind.Player
 {
-    public class PrimaryAttackEvent : ComponentEvent { }
-    public class SecondaryAttackEvent : ComponentEvent { }
-    public class TertiaryAttackEvent : ComponentEvent { }
-    public class InventorySwitchEvent : ComponentEvent { }
+    public class ButtonEvent : ComponentEvent { public bool inGameOnly = true; }
+
+    public class PrimaryAttackEvent : ButtonEvent { }
+    public class SecondaryAttackEvent : ButtonEvent { }
+    public class TertiaryAttackEvent : ButtonEvent { }
+    public class InventorySwitchEvent : ButtonEvent { public InventorySwitchEvent() { inGameOnly = false; } }
+    public class CodexSwitchEvent : ButtonEvent { public CodexSwitchEvent() { inGameOnly = false; } }
+    public class InteractEvent : ButtonEvent { }
 
 }

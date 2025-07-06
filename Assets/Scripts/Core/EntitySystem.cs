@@ -1,5 +1,6 @@
 using Core.EntityStatuses;
 using Core.Events;
+using Core.Mind.NPC;
 using Core.Mind.Player;
 using Core.Roleplay;
 using Core.Roleplay.Progress;
@@ -17,19 +18,17 @@ namespace Core
         {
             Subscribe<EntityComponent, ComponentInitEvent>(OnComponentInit);
             Subscribe<EntityComponent, DamageEvent>(OnDamage);
+            Subscribe<EntityComponent, DeathEvent>(OnDeath);
         }
         public override void SecondUpdate()
         {
             foreach (var entity in _entities) 
             {
                 var Temp = entity.Statuses.ToList();
+                    
+                
                 foreach (var status in Temp)
                 {
-                    if (status.IsNotDisplayed && entity is PlayerComponent player && status.TimeProgress() != -1)
-                    {
-                        TriggerEvent(player, new DisplayStatusEvent(status));
-                        status.IsNotDisplayed = false;
-                    }
                     var effects = status.SecondEffect();
                     if (effects == null || effects.Count == 0) continue;
                     foreach (var effect in effects)
@@ -41,23 +40,44 @@ namespace Core
         }
         public override void TickUpdate()
         {
-            base.TickUpdate();
             foreach (var entity in _entities)
             {
-                foreach (var status in entity.Statuses)
+                FlashTick(entity.Flash);
+                var Temp = entity.Statuses.ToList();
+                foreach (var status in Temp)
                 {
+                    if (status.IsNotDisplayed && entity is PlayerComponent player && status.TimeProgress() != -1)
+                    {
+                        TriggerEvent(player, new DisplayStatusEvent(status));
+                        status.IsNotDisplayed = false;
+                    }
                     var effects = status.TickEffect();
-                    if (effects == null) continue;
+                    if (effects == null || effects.Count == 0) continue;
                     foreach (var effect in effects)
                     {
-                        effect.Effect(entity);
+                        if (entity != null && effect != null) effect.Effect(entity);
                     }
                 }
+            }
+        }
+        private void FlashTick(DamageFlashComponent component)
+        {
+            if (!component.isFlashing) return;
+
+            component.timer -= 0.1f;
+            if (component.timer <= 0f)
+            {
+                if (component.targetRenderer != null)
+                {
+                    component.targetRenderer.material.color = component.originalColor;
+                }
+                component.isFlashing = false;
             }
         }
         private void OnDamage(EntityComponent component, DamageEvent args)
         {
             var dat = args.Damage * component.Resistance;
+            Logger.Warn(component.Resistance.DictDisplay());
             component.Damage.Add(dat);
             if (component.DamageThreshold <= component.Damage.GetTotal()) { 
                 component.TryGetComponent<LevelComponent>(out var progress);
@@ -65,10 +85,36 @@ namespace Core
                 else GameObject.Destroy(component.gameObject);
             }
             Logger.Info(component.Damage.Display());
+            OnDamage(component.Flash, args);
+        }
+        private void OnDeath(EntityComponent component, DeathEvent args)
+        {
+            foreach (var eff in component._deathEffects)
+            {
+                eff.Effect(component);
+            }
+        }
+        private void OnDamage(DamageFlashComponent component, DamageEvent evt)
+        {
+            if (component.targetRenderer == null) return;
+
+            var mat = component.targetRenderer.material;
+
+            if (!component.isFlashing)
+            {
+                component.originalColor = mat.color;
+            }
+
+            mat.color = component.flashColor;
+            component.timer = component.flashDuration;
+            component.isFlashing = true;
         }
         private void OnComponentInit(EntityComponent component, ComponentInitEvent args) 
         {
             _entities.Add(component);
+            component.Flash = component.GetComponent<DamageFlashComponent>();
+            if(component.Flash.targetRenderer == null) component.Flash.targetRenderer = component.GetComponent<Renderer>();
+            if(component.Flash.targetRenderer == null) component.Flash.targetRenderer = component.GetComponentInChildren<Renderer>();
         }
 
     }

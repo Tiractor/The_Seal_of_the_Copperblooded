@@ -8,10 +8,12 @@ namespace Core.EntityEffects
     public class StatusGiveEffect : EntityEffect
     {
         
-        [SerializeReference] public EntityStatus target = new Fired();
+        [SerializeReference] public Statuses target = Statuses.Fired;
         public override void Effect<T>(T component)
         {
-            component.Statuses.Add(target);
+            component.Statuses.Add(StatusReturner.EnumToStatus(target));
+            Debug.Log(component + " " + target.ToString());
+            component.DisplayStatuses();
         }
     }
 }

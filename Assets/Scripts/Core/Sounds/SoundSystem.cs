@@ -15,7 +15,7 @@ namespace Core.Sounds
         }
         public override void SecondUpdate()
         {
-            base.SecondUpdate();
+            if (subtitleUI == null) return;
             if (subtitleUI.duration > 0) subtitleUI.duration--;
             else
             {
@@ -34,6 +34,7 @@ namespace Core.Sounds
         {
             if (subtitleUI != null) return;
             subtitleUI = component;
+            subtitleUI.text.text = string.Empty;
         }
         private void NewSound(NewSoundEvent args)
         {

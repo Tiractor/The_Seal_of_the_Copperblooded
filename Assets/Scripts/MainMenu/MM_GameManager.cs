@@ -11,4 +11,8 @@ public class MM_GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Playzone");
     }
+    public void Menu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

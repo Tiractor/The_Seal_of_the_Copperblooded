@@ -1,6 +1,9 @@
+using Core.EntityEffects;
 using Core.EntityStatuses;
 using Core.Events;
+using Core.Mind.NPC;
 using Core.Roleplay;
+using Core.Roleplay.Inventory;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +13,15 @@ namespace Core
     ///     Base class for interactable objects
     /// </summary>
     [RequireComponent(typeof(EntityUID))]
+    [RequireComponent(typeof(DamageFlashComponent))]
     public abstract class EntityComponent : EventComponent
     {
         [SerializeField] public DamageSpecifier Damage;
         [SerializeField] public DamageSpecifier Resistance;
         [SerializeField] public DamageSpecifier Amplification;
+        [SerializeField] public DamageFlashComponent Flash;
+        [SerializeReference] public EntityEffect[] _deathEffects = new EntityEffect[0];
+        [SerializeField] public InventoryComponent Inventory;
         [SerializeField] public int DamageThreshold = 100; 
         [SerializeField] public HashSet<EntityStatus> Statuses = new();
 
@@ -23,7 +30,7 @@ namespace Core
         {
             foreach (var stat in Statuses)
             {
-                Logger.Info(stat.GetType().Name);
+                Logger.Info(stat.GetType().Name + " - " + stat.Time + " " + stat.TimeProgress());
             }
         }
         [ContextMenu("Damages")]

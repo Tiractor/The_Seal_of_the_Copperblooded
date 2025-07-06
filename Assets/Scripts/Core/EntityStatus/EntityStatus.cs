@@ -8,8 +8,8 @@ namespace Core.EntityStatuses
     [Serializable]
     public abstract class EntityStatus
     {
-        [NonSerialized] protected float MaxTime = -1;
-        public float Time = -1;
+        protected float MaxTime = -1;
+        public float Time = -2;
         public bool IsNotDisplayed = true;
         [HideInInspector] public virtual Sprite icon { get; protected set; }
         public virtual HashSet<EntityEffect> SecondEffect() { return null; }
@@ -18,7 +18,7 @@ namespace Core.EntityStatuses
         protected EntityEffect TimeGoing(bool IsTick)
         {
             if (MaxTime == -1) return null;
-            if (Time == -1) Time = MaxTime;
+            if (Time == -2) Time = MaxTime;
             if (IsTick) Time -= 0.1f;
             else Time -= 1;
             if (Time < 0)
@@ -34,7 +34,7 @@ namespace Core.EntityStatuses
         }
         public string strTimeProgress()
         {
-            return (int)Time/60+ ":"+Time%60;
+            return (int)Time/60+ ":"+ Math.Round((Time%60), 0);
         }
     }
 }

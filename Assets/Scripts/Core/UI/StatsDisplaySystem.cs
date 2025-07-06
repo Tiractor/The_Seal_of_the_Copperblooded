@@ -3,7 +3,6 @@ using Core.Events;
 using Core.Mind.Player;
 using Core.Roleplay;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Core.UI
@@ -62,6 +61,7 @@ namespace Core.UI
         private void OnComponentInit(CharMenuComponent component, ComponentInitEvent args)
         {
             CM = component;
+            CM.gameObject.SetActive(false);
         }
         private void OnComponentInit(StatDisplay component, ComponentInitEvent args)
         {
@@ -75,7 +75,6 @@ namespace Core.UI
         }
         private void OnDataInit(PlayerComponent component, ComponentInitEvent args)
         {
-            Logger.Info(0);
             foreach (var item in statDisplays)
             {
                 DataRefresh(item, component);
@@ -135,7 +134,7 @@ namespace Core.UI
         private void NewStatus(PlayerComponent component, DisplayStatusEvent args)
         {
             if (args.EntityStatus.icon == null) return;
-            foreach(var item in statusDisplayers)
+            foreach (var item in statusDisplayers)
             {
                 var temp = GameObject.Instantiate(GameManager.instance.Prefabs.StatusDisplay, item.transform).GetComponent<StatusDisplay>();
                 temp.display = args.EntityStatus;
